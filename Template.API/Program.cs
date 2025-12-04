@@ -1,28 +1,37 @@
-using Template.API.Extensions;
+using Modules.Accounts.Infrastructure.Extensions;
+using Modules.Transactions.Application.Extensions;
+using Modules.Transactions.Infrastructure.Extensions;
+using Modules.Users.Application.Extensions;
+using Modules.Users.Endpoints.Extensions;
+using Modules.Users.Infrastructure.Extensions;
 using Template.Application.Extensions;
-using Template.Domain.Entities;
-using Template.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().
+    AddApplicationPart(typeof(Modules.Transactions.Endpoints.Controllers.TransactionsController).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.AddPresentation();
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+//builder.AddPresentation();
+builder.AddUserModulePresentation();
+builder.Services.AddAccountsApplication();
+builder.Services.AddAccountsInfrastructure(builder.Configuration);
+builder.Services.AddUsersApplication();
+builder.Services.AddUsersInfrastructure(builder.Configuration);
+builder.Services.AddTransactionsApplication();
+builder.Services.AddTransactionsInfrastructure(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll",
-		b => b.AllowAnyHeader()
-			.AllowAnyOrigin()
-			.AllowAnyMethod());
+    options.AddPolicy("AllowAll",
+        b => b.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod());
 });
 
 var app = builder.Build();
@@ -33,12 +42,11 @@ var scope = app.Services.CreateScope(); //for seeders
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 
 app.UseCors("AllowAll");
 

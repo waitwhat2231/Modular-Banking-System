@@ -1,0 +1,24 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Modules.Users.Domain.Entities;
+using Modules.Users.Infrastructure.Persistence;
+
+namespace Modules.Users.Infrastructure.Extensions;
+
+public static class ServiceCollectionExtensions
+{
+    public static void AddUsersInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        //var connectionString = configuration.GetConnectionString("TemplateDb");
+        services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"));
+
+        //this for identity and jwt when needed
+        services.AddIdentityCore<User>()
+            .AddRoles<IdentityRole>()
+            .AddTokenProvider<DataProtectorTokenProvider<User>>("TemplateTokenProvidor")
+            .AddEntityFrameworkStores<UserDbContext>()
+            .AddDefaultTokenProviders();
+    }
+}

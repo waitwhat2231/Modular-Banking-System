@@ -12,15 +12,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Accounts.Application\Modules.Accounts.Application.csproj" />
+    <ProjectReference Include="..\Modules.Accounts.Endpoints\Modules.Accounts.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.Accounts.Infrastructure\Modules.Accounts.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules.Transactions.Application\Modules.Transactions.Application.csproj" />
+    <ProjectReference Include="..\Modules.Transactions.Endpoints\Modules.Transactions.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.Transactions.Infrastructure\Modules.Transactions.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules.Users.Application\Modules.Users.Application.csproj" />
+    <ProjectReference Include="..\Modules.Users.Endpoints\Modules.Users.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.Users.Infrastructure\Modules.Users.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

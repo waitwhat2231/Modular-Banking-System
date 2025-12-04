@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace Template.API.Extensions
+namespace Modules.Users.Endpoints.Extensions
 {
     public static class WebApplicationBuilderExtension
     {
-        public static void AddPresentation(this WebApplicationBuilder builder)
+        public static void AddUserModulePresentation(this WebApplicationBuilder builder)
         {
             builder.Services.AddAuthentication(options =>
             {
@@ -56,3 +58,4 @@ namespace Template.API.Extensions
         }
     }
 }
+
