@@ -3,10 +3,10 @@ using Modules.Accounts.Domain.Entities;
 
 namespace Modules.Accounts.Infrastructure.Persistence;
 
-internal class AccountsDbContext(DbContextOptions<AccountsDbContext> options) : DbContext(options)
+public class AccountsDbContext(DbContextOptions<AccountsDbContext> options) : DbContext(options)
 {
     //internal DbSet<EntityType> table_name {get; set;}
-    internal DbSet<Account> Accounts { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

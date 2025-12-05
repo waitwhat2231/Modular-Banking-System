@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Accounts.Domain.Repositories;
 using Modules.Accounts.Infrastructure.Persistence;
 
 namespace Modules.Accounts.Infrastructure.Extensions;
@@ -11,5 +12,7 @@ public static class ServiceCollectionExtensions
     {
         //var connectionString = configuration.GetConnectionString("TemplateDb");
         services.AddDbContext<AccountsDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"));
+
+        services.AddScoped<IAccountRepository, AccountRepository>();
     }
 }
