@@ -8,7 +8,7 @@ namespace Modules.Transactions.Domain.Entities
         public int AccountId { get; set; }
         public DateTime CreatedAt { get; set; }
         public EnumTransactionType TransactionType { get; set; }
-
+        public int Amount { get; set; }
 
     }
 }
