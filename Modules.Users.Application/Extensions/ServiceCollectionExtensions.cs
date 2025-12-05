@@ -17,5 +17,8 @@ public static class ServiceCollectionExtensions
                 .AddFluentValidationAutoValidation();
 
         services.AddAutoMapper(applicationAssembly);
+        services.AddHttpContextAccessor();
+        services.AddScoped<IUserContext, UserContext>();
     }
+
 }

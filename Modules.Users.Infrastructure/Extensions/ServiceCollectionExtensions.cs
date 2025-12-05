@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Users.Domain.Entities;
+using Modules.Users.Domain.Repositories;
 using Modules.Users.Infrastructure.Persistence;
+using Modules.Users.Infrastructure.Repositories;
+using Modules.Users.Infrastructure.Seeders;
 
 namespace Modules.Users.Infrastructure.Extensions;
 
@@ -20,5 +23,10 @@ public static class ServiceCollectionExtensions
             .AddTokenProvider<DataProtectorTokenProvider<User>>("TemplateTokenProvidor")
             .AddEntityFrameworkStores<UserDbContext>()
             .AddDefaultTokenProviders();
+        services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
+        services.AddScoped<IDeviceRepository, DeviceRepository>();
+        services.AddScoped<IOTPRepository, OTPRepository>();
+        services.AddScoped<IRolesSeeder, RolesSeeder>();
     }
 }
