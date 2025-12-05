@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using Common.SharedClasses.Services;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Users.Application.Services;
 
 
 namespace Modules.Users.Application.Extensions;
@@ -19,6 +21,7 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper(applicationAssembly);
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
+        services.AddScoped<IUsersService, UsersService>();
     }
 
 }
