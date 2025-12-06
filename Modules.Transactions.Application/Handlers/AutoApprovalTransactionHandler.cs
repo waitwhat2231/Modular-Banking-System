@@ -1,6 +1,6 @@
 ﻿using Modules.Transactions.Domain.Entities;
 
-namespace Modules.Transactions.Domain.Handlers;
+namespace Modules.Transactions.Application.Handlers;
 
 public class AutoApprovalTransactionHandler : TransactionHandler
 {
@@ -8,7 +8,7 @@ public class AutoApprovalTransactionHandler : TransactionHandler
     {
         if (tx.Amount <= 1000)
         {
-            tx.Status = Enums.EnumTransactionStatus.Approved;
+            tx.Status = Domain.Enums.EnumTransactionStatus.Approved;
             tx.ApprovedAt = DateTime.UtcNow;
             return;
         }

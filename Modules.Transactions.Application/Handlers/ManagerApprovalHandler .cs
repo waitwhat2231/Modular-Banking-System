@@ -1,6 +1,6 @@
 ﻿using Modules.Transactions.Domain.Entities;
 
-namespace Modules.Transactions.Domain.Handlers;
+namespace Modules.Transactions.Application.Handlers;
 
 public class ManagerApprovalHandler : TransactionHandler
 {
@@ -8,7 +8,7 @@ public class ManagerApprovalHandler : TransactionHandler
     {
         if (transaction.Amount > 1000 && transaction.Amount <= 10000)
         {
-            transaction.Status = Enums.EnumTransactionStatus.PendingManager;
+            transaction.Status = Domain.Enums.EnumTransactionStatus.PendingManager;
             return;
         }
 

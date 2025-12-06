@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Transactions.Application.Handlers;
 
 
 namespace Modules.Transactions.Application.Extensions
@@ -17,6 +18,20 @@ namespace Modules.Transactions.Application.Extensions
                     .AddFluentValidationAutoValidation();
 
             services.AddAutoMapper(applicationAssembly);
+            services.AddTransient<AutoApprovalTransactionHandler>();
+            services.AddTransient<AdministratorApprovalTransactionHandler>();
+            services.AddTransient<ManagerApprovalHandler>();
+
+            services.AddTransient<TransactionApprovalChain>(provider =>
+            {
+                var auto = provider.GetService<AutoApprovalTransactionHandler>();
+                var mgr = provider.GetService<AdministratorApprovalTransactionHandler>();
+                var adm = provider.GetService<ManagerApprovalHandler>();
+
+                auto.SetNext(mgr).SetNext(adm);
+
+                return new TransactionApprovalChain(auto);
+            });
         }
     }
 }
