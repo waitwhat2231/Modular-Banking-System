@@ -5,6 +5,7 @@ using Modules.Accounts.Application.Command.Create;
 using Modules.Accounts.Application.Command.Update;
 using Modules.Accounts.Application.Queries.GetAll;
 using Modules.Accounts.Application.Queries.GetById;
+using Modules.Accounts.Application.Queries.GetUsersAccounts;
 
 namespace Modules.Accounts.Endpoints.Controller;
 
@@ -46,6 +47,13 @@ public class AccountsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var result = await mediator.Send(new GetAccountByIdQuery(id));
+        return Ok(result);
+    }
+
+    [HttpGet("GetByUserId")]
+    public async Task<IActionResult> GetByUserId(int id)
+    {
+        var result = await mediator.Send(new GetUsersAccountsQuery());
         return Ok(result);
     }
 }

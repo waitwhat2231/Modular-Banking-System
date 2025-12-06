@@ -8,6 +8,14 @@ namespace Modules.Accounts.Infrastructure;
 
 public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<Account>(dbcontext), IAccountRepository
 {
+    public async Task<List<Account>> GetByUserIdAsync(string userId)
+    {
+        return await dbcontext.Accounts
+            .Where(a => a.UserId == userId)
+            .Include(a => a.Children)
+            .ToListAsync();
+    }
+
     public async Task<Account?> GetWithChildrenAsync(int accountId)
     {
         return await dbcontext.Accounts
