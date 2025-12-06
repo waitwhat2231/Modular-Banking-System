@@ -6,6 +6,7 @@ internal class TransactionsDbContext(DbContextOptions<TransactionsDbContext> opt
 {
     //internal DbSet<EntityType> table_name {get; set;}
     internal DbSet<Modules.Transactions.Domain.Entities.Transaction> Transactions { get; set; }
+    internal DbSet<Modules.Transactions.Domain.Entities.TransactionApprovalRules> TransactionRules { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

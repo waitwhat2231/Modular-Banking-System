@@ -2,6 +2,7 @@ using Common.SharedClasses.Repositories;
 using Modules.Accounts.Infrastructure.Extensions;
 using Modules.Transactions.Application.Extensions;
 using Modules.Transactions.Infrastructure.Extensions;
+using Modules.Transactions.Infrastructure.Seeders;
 using Modules.Users.Application.Extensions;
 using Modules.Users.Endpoints.Extensions;
 using Modules.Users.Infrastructure.Extensions;
@@ -54,6 +55,10 @@ var scope = app.Services.CreateScope(); //for seeders
 var rolesSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
 
 await rolesSeeder.Seed();
+
+var transactionRulesSeeder = scope.ServiceProvider.GetRequiredService<ITransactionRulesSeeder>();
+
+await transactionRulesSeeder.Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

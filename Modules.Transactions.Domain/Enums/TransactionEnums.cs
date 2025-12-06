@@ -6,4 +6,11 @@
         Routine,
 
     }
+    public enum EnumTransactionStatus
+    {
+        PendingManager,
+        PendingAdmin,
+        Approved,
+        Rejected
+    }
 }
