@@ -1,4 +1,5 @@
-﻿using Common.SharedClasses.Repositories;
+﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Repositories;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,6 @@ using MimeKit.Text;
 using Modules.Users.Domain.Entities;
 using Modules.Users.Domain.Entities.Auth;
 using Modules.Users.Domain.Entities.Devices;
-using Modules.Users.Domain.Enums;
 using Modules.Users.Domain.Repositories;
 using Modules.Users.Infrastructure.Persistence;
 

@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Transactions.Application.CommittingStrategies;
+using Modules.Transactions.Application.CommittingStrategies.Factory;
 using Modules.Transactions.Application.Handlers;
 
 
@@ -24,14 +26,20 @@ namespace Modules.Transactions.Application.Extensions
 
             services.AddTransient<TransactionApprovalChain>(provider =>
             {
-                var auto = provider.GetService<AutoApprovalTransactionHandler>();
-                var mgr = provider.GetService<AdministratorApprovalTransactionHandler>();
-                var adm = provider.GetService<ManagerApprovalHandler>();
+                var auto = provider.GetRequiredService<AutoApprovalTransactionHandler>();
+                var mgr = provider.GetRequiredService<AdministratorApprovalTransactionHandler>();
+                var adm = provider.GetRequiredService<ManagerApprovalHandler>();
 
                 auto.SetNext(mgr).SetNext(adm);
 
                 return new TransactionApprovalChain(auto);
             });
+
+            services.AddScoped<TransferStrategy>();
+            services.AddScoped<WithdrawalStrategy>();
+            services.AddScoped<DepositStrategy>();
+
+            services.AddScoped<ITransactionStrategyFactory, TransactionStrategyFactory>();
         }
     }
 }

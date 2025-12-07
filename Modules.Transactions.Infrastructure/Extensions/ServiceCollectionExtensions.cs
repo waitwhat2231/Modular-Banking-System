@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Transactions.Domain.Repositories;
+using Modules.Transactions.Infrastructure.Repositories;
 using Modules.Transactions.Infrastructure.Seeders;
 using Template.Infrastructure.Persistence;
 
@@ -13,5 +15,7 @@ public static class ServiceCollectionExtensions
         //  var connectionString = configuration.GetConnectionString("TemplateDb");
         services.AddDbContext<TransactionsDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"));
         services.AddScoped<ITransactionRulesSeeder, TransactionRulesSeeder>();
+        services.AddScoped<ITransactionRulesRepository, TransactionRulesRepository>();
+        services.AddScoped<ITransactionsRepository, TransactionsRepository>();
     }
 }

@@ -4,6 +4,6 @@ namespace Modules.Transactions.Application.CommittingStrategies
 {
     public interface ITransactionCommitStrategy
     {
-        public Task CommitTransactionAsync(Transaction tx);
+        public Task CommitTransactionAsync(Transaction tx, string userId);
     }
 }

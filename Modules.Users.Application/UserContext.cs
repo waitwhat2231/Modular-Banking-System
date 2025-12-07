@@ -1,4 +1,6 @@
 ﻿
+using Common.SharedClasses.Dtos.Users;
+using Common.SharedClasses.Services;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -37,5 +39,6 @@ namespace Modules.Users.Application
 
             return authHeader.Substring("Bearer ".Length).Trim();
         }
+
     }
 }

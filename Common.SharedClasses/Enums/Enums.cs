@@ -1,4 +1,4 @@
-﻿namespace Modules.Users.Domain.Enums
+﻿namespace Common.SharedClasses.Enums
 {
     public enum EnumRoleNames
     {
