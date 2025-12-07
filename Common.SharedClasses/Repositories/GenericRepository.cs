@@ -62,5 +62,14 @@ namespace Common.SharedClasses.Repositories
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task<T?> GetByIdOptionalTracking(int id, bool tracking = true)
+        {
+            var entity = await dbContext.Set<T>().FindAsync(id);
+            if (!tracking)
+            {
+                dbContext.Entry(entity).State = EntityState.Detached;
+            }
+            return entity;
+        }
     }
 }

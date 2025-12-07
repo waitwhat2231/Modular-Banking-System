@@ -1,6 +1,6 @@
-﻿using MediatR;
-using Modules.Accounts.Application.Dtos;
-using Modules.Accounts.Domain.Enums;
+﻿using Common.SharedClasses.Dtos.Accounts;
+using Common.SharedClasses.Enums;
+using MediatR;
 
 namespace Modules.Accounts.Application.Command.ChangeState;
 

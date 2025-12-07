@@ -5,6 +5,7 @@ namespace Modules.Transactions.Application.Handlers;
 public abstract class TransactionHandler
 {
     protected TransactionHandler _next;
+    private readonly I
 
     public TransactionHandler SetNext(TransactionHandler next)
     {

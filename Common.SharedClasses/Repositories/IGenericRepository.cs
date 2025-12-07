@@ -4,6 +4,7 @@
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T?> FindByIdAsync(int id);
+        Task<T?> GetByIdOptionalTracking(int id, bool tracking = true);
         Task<T> AddAsync(T entity);
         Task SoftDeleteAsync(T entity);
         Task HardDeleteAsync(T entity);

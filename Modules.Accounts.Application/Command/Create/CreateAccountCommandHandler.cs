@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Accounts;
 using Common.SharedClasses.Exceptions;
 using MediatR;
-using Modules.Accounts.Application.Dtos;
 using Modules.Accounts.Domain.Entities;
 using Modules.Accounts.Domain.Repositories;
 

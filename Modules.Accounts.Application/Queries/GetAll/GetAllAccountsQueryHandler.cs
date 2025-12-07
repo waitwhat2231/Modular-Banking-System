@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Accounts;
 using MediatR;
-using Modules.Accounts.Application.Dtos;
 using Modules.Accounts.Domain.Repositories;
 
 namespace Modules.Accounts.Application.Queries.GetAll;

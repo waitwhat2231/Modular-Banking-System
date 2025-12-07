@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Modules.Accounts.Application.Dtos;
+﻿using Common.SharedClasses.Dtos.Accounts;
+using MediatR;
 
 namespace Modules.Accounts.Application.Queries.GetById;
 

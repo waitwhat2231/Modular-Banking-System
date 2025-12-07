@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Accounts;
+using Common.SharedClasses.Enums;
 using MediatR;
-using Modules.Accounts.Application.Dtos;
-using Modules.Accounts.Domain.Enums;
 using Modules.Accounts.Domain.Repositories;
 
 namespace Modules.Accounts.Application.Command.ChangeState;
