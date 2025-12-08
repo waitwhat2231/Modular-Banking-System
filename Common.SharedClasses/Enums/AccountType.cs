@@ -1,4 +1,4 @@
-﻿namespace Modules.Accounts.Domain.Enums;
+﻿namespace Common.SharedClasses.Enums;
 
 public enum AccountType
 {

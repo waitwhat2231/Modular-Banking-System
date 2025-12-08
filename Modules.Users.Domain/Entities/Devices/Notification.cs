@@ -1,4 +1,4 @@
-﻿using Modules.Users.Domain.Enums;
+﻿using Common.SharedClasses.Enums;
 
 namespace Modules.Users.Domain.Entities.Devices;
 

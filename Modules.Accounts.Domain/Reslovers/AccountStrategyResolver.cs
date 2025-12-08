@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.Accounts.Domain.Enums;
+﻿using Common.SharedClasses.Enums;
+using Microsoft.Extensions.DependencyInjection;
 using Modules.Accounts.Domain.Strategies;
 using Modules.Accounts.Infrastructure.Strategies;
 

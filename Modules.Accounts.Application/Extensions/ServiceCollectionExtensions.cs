@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using Common.SharedClasses.Services;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Accounts.Application.Services;
 
 
 namespace Template.Application.Extensions;
@@ -17,5 +19,6 @@ public static class ServiceCollectionExtensions
                 .AddFluentValidationAutoValidation();
 
         services.AddAutoMapper(applicationAssembly);
+        services.AddScoped<IAccountService, AccountService>();
     }
 }

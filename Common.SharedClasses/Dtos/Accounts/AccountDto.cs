@@ -1,6 +1,6 @@
-﻿using Modules.Accounts.Domain.Enums;
+﻿using Common.SharedClasses.Enums;
 
-namespace Modules.Accounts.Application.Dtos;
+namespace Common.SharedClasses.Dtos.Accounts;
 
 public class AccountDto
 {

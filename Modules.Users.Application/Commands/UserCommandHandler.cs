@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Enums;
 using Common.SharedClasses.Exceptions;
+using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Modules.Users.Application;
-using Modules.Users.Application.Commands;
 using Modules.Users.Domain.Entities;
 using Modules.Users.Domain.Entities.Auth;
-using Modules.Users.Domain.Enums;
 using Modules.Users.Domain.Repositories;
 
-namespace Template.Application.Users.Commands;
+namespace Modules.Users.Application.Commands;
 
 public class RegisterUserCommandHandler(IMapper mapper,
         IUserContext userContext,

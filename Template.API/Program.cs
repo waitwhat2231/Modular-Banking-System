@@ -61,11 +61,11 @@ var transactionRulesSeeder = scope.ServiceProvider.GetRequiredService<ITransacti
 await transactionRulesSeeder.Seed();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 

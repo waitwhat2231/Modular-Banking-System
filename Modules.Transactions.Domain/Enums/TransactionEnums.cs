@@ -4,6 +4,9 @@
     {
         Loan,
         Routine,
+        Deposit,
+        Withdrawal,
+        Transfer
 
     }
     public enum EnumTransactionStatus
