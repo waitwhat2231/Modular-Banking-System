@@ -35,5 +35,6 @@ namespace Modules.Users.Domain.Repositories
         Task<User?> FindUserByIdOptionalTracking(string userId, bool asNoTracking = false);
         Task<AuthResponse>? LoginUserWithoutDevice(string email, string password);
         Task<bool> ConfirmEmailAsync(string email, string code);
+        Task<List<User>> GetAllPaginatedAsync(int page, int pageSize, string userName);
     }
 }

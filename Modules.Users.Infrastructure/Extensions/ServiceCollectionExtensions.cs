@@ -17,7 +17,8 @@ public static class ServiceCollectionExtensions
         //var connectionString = configuration.GetConnectionString("TemplateDb");
         //"Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"
         //Server=db34639.public.databaseasp.net; Database=db34639; User Id=db34639; Password=3Zk@S_4o=yB8; Encrypt=True; TrustServerCertificate=True; 
-        services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=db34639.public.databaseasp.net; Database=db34639; User Id=db34639; Password=3Zk@S_4o=yB8; Encrypt=True; TrustServerCertificate=True; "));
+        //services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=db34639.public.databaseasp.net; Database=db34639; User Id=db34639; Password=3Zk@S_4o=yB8; Encrypt=True; TrustServerCertificate=True; "));
+        services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"));
 
         //this for identity and jwt when needed
         services.AddIdentityCore<User>()

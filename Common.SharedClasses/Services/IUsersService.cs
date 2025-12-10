@@ -5,5 +5,6 @@ namespace Common.SharedClasses.Services
     public interface IUsersService
     {
         public Task<UserDto> GetUserById(string userId);
+        public Task<List<MiniUserDto>> GetAllUsersAsync(int page, int pageSize, string userName);
     }
 }

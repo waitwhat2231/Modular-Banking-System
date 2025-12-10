@@ -539,6 +539,21 @@ namespace Modules.Users.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<User>> GetAllPaginatedAsync(int page, int pageSize, string userName)
+        {
+            var query = userDbContext.Users
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(userName))
+                query = query.Where(u => u.UserName.ToLower().Contains(userName.ToLower()));
+
+            var users = await query.ToListAsync();
+
+            return users;
+        }
     }
 }
 

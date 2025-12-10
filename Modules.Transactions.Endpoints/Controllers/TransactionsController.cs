@@ -8,7 +8,7 @@ using Modules.Transactions.Application.Commands.ChangeStatus;
 namespace Modules.Transactions.Endpoints.Controllers
 {
     [ApiController]
-    [Route("/api/account/")]
+    [Route("/api/[controller]")]
     public class TransactionsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
