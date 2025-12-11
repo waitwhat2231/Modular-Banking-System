@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.SharedClasses.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Accounts.Application.Command.ChangeState;
 using Modules.Accounts.Application.Command.Create;
@@ -54,6 +55,18 @@ public class AccountsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetByUserId(int id)
     {
         var result = await mediator.Send(new GetUsersAccountsQuery());
+        return Ok(result);
+    }
+    [HttpGet("AccountSateEnum")]
+    public IActionResult GetAccountStateEnum()
+    {
+        var result = EnumHelper.ToEnumDtoList<AccountState>();
+        return Ok(result);
+    }
+    [HttpGet("AccountTypeEnum")]
+    public IActionResult GetAccountTypeEnum()
+    {
+        var result = EnumHelper.ToEnumDtoList<AccountType>();
         return Ok(result);
     }
 }

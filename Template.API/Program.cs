@@ -9,6 +9,7 @@ using Modules.Users.Application.Extensions;
 using Modules.Users.Endpoints.Extensions;
 using Modules.Users.Infrastructure.Extensions;
 using Modules.Users.Infrastructure.Seeders;
+using System.Text.Json.Serialization;
 using Template.API.Extensions;
 using Template.Application.Extensions;
 
@@ -16,13 +17,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().
-    AddApplicationPart(typeof(Modules.Transactions.Endpoints.Controllers.TransactionsController).Assembly);
+builder.Services.AddControllers()
+      .AddJsonOptions(options =>
+      {
+          options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      })
+   .AddApplicationPart(typeof(Modules.Transactions.Endpoints.Controllers.TransactionsController).Assembly);
 
-builder.Services.AddControllers().
+builder.Services.AddControllers()
+      .AddJsonOptions(options =>
+      {
+          options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      }).
     AddApplicationPart(typeof(Modules.Users.Endpoints.Controllers.UsersController).Assembly);
 
-builder.Services.AddControllers().
+builder.Services.AddControllers()
+      .AddJsonOptions(options =>
+      {
+          options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      }).
     AddApplicationPart(typeof(Modules.Accounts.Endpoints.Controller.AccountsController).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

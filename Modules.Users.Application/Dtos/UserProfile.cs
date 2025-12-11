@@ -9,6 +9,7 @@ namespace Modules.Users.Application.Dtos
         public UserProfile()
         {
             CreateMap<MiniUserDto, User>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
             CreateMap<RegisterUserCommand, User>();
         }
     }

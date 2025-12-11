@@ -52,6 +52,19 @@ namespace Modules.Transactions.Endpoints.Controllers
             await mediator.Send(command);
             return Ok();
         }
+        [HttpGet("TransactionSatusEnum")]
+        public IActionResult GetTransactionStatusEnum()
+        {
+            var result = EnumHelper.ToEnumDtoList<EnumTransactionStatus>();
+            return Ok(result);
+        }
+        [HttpGet("TransactionTypeEnum")]
+        public IActionResult GetTransactionTypeEnum()
+        {
+            var result = EnumHelper.ToEnumDtoList<EnumTransactionType>();
+            return Ok(result);
+        }
+
 
     }
 }
