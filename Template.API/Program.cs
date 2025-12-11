@@ -9,6 +9,7 @@ using Modules.Users.Application.Extensions;
 using Modules.Users.Endpoints.Extensions;
 using Modules.Users.Infrastructure.Extensions;
 using Modules.Users.Infrastructure.Seeders;
+using Template.API.Extensions;
 using Template.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,7 +72,11 @@ using (var schedulerScope = app.Services.CreateScope())
 //{
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHangfireDashboard();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+{
+    Authorization = new[] { new AllowAllDashboardAuthFilter() }
+}
+    );
 //}
 
 app.UseHttpsRedirection();
