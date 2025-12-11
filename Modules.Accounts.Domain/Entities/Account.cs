@@ -13,6 +13,10 @@ public class Account
     public DateTime CreatedAt { get; set; }
     public int Balance { get; set; }
 
+    public int AccuredInterest { get; set; } = 0;
+    public DateTime? LastDailyInterestCalculation { get; set; }
+    public DateTime? LastMonthlyInterestDeposit { get; set; }
+
     public List<Account> Children { get; set; } = [];
 
     private Account() { }

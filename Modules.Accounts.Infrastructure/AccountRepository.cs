@@ -22,4 +22,5 @@ public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<
             .Include(a => a.Children)
             .FirstOrDefaultAsync(a => a.Id == accountId);
     }
+
 }

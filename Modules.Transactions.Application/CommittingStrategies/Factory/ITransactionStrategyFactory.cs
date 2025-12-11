@@ -1,4 +1,4 @@
-﻿using Modules.Transactions.Domain.Enums;
+﻿using Common.SharedClasses.Enums;
 
 namespace Modules.Transactions.Application.CommittingStrategies.Factory
 {

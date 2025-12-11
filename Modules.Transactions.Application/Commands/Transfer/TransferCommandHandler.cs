@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Enums;
 using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Modules.Transactions.Application.Commands.Deposit;
 using Modules.Transactions.Application.Handlers;
 using Modules.Transactions.Domain.Entities;
-using Modules.Transactions.Domain.Enums;
 using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.Commands.Transfer

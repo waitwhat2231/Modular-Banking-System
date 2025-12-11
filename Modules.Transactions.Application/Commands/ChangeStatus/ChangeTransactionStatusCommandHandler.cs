@@ -3,7 +3,6 @@ using Common.SharedClasses.Exceptions;
 using Common.SharedClasses.Services;
 using MediatR;
 using Modules.Transactions.Application.CommittingStrategies.Factory;
-using Modules.Transactions.Domain.Enums;
 using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.Commands.ChangeStatus

@@ -1,4 +1,6 @@
 using Common.SharedClasses.Repositories;
+using Hangfire;
+using Modules.Accounts.Domain.JobRelatedServices;
 using Modules.Accounts.Infrastructure.Extensions;
 using Modules.Transactions.Application.Extensions;
 using Modules.Transactions.Infrastructure.Extensions;
@@ -59,12 +61,17 @@ await rolesSeeder.Seed();
 var transactionRulesSeeder = scope.ServiceProvider.GetRequiredService<ITransactionRulesSeeder>();
 
 await transactionRulesSeeder.Seed();
-
+using (var schedulerScope = app.Services.CreateScope())
+{
+    var scheduler = schedulerScope.ServiceProvider.GetRequiredService<IJobScheduler>();
+    scheduler.RegisterJobs();
+}
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseHangfireDashboard();
 //}
 
 app.UseHttpsRedirection();

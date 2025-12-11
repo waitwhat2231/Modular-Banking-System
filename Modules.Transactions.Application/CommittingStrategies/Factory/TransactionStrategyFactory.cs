@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.Transactions.Domain.Enums;
+﻿using Common.SharedClasses.Enums;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Modules.Transactions.Application.CommittingStrategies.Factory
 {

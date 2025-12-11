@@ -1,4 +1,4 @@
-﻿namespace Modules.Transactions.Domain.Enums
+﻿namespace Common.SharedClasses.Enums
 {
     public enum EnumTransactionType
     {

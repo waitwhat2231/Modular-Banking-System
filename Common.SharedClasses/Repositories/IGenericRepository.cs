@@ -6,10 +6,12 @@
         Task<T?> FindByIdAsync(int id);
         Task<T?> GetByIdOptionalTracking(int id, bool tracking = true);
         Task<T> AddAsync(T entity);
+        Task<List<T>> AddBatch(List<T> entityList);
         Task SoftDeleteAsync(T entity);
         Task HardDeleteAsync(T entity);
         Task SaveChangesAsync();
         Task<IEnumerable<T>> GetPagedResponseAsync(int pageNumber, int pageSize);
         Task UpdateAsync(T entity);
+
     }
 }

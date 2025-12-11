@@ -1,4 +1,5 @@
-﻿using Modules.Transactions.Domain.Entities;
+﻿using Common.SharedClasses.Enums;
+using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.Handlers;
@@ -15,7 +16,7 @@ public class AutoApprovalTransactionHandler : TransactionHandler
         var transactionRule = await _txrulesRepository.GetRuleFromHandlerName(GetType().Name);
         if (tx.Amount <= transactionRule.MaxAmount && transactionRule.IsActive)
         {
-            tx.Status = Domain.Enums.EnumTransactionStatus.Approved;
+            tx.Status = EnumTransactionStatus.Approved;
             tx.ApprovedByUserId = "System";
             tx.ApprovedAt = DateTime.UtcNow;
             return;

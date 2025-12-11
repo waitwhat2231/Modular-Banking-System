@@ -1,9 +1,11 @@
-﻿using FluentValidation;
+﻿using Common.SharedClasses.Services;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Transactions.Application.CommittingStrategies;
 using Modules.Transactions.Application.CommittingStrategies.Factory;
 using Modules.Transactions.Application.Handlers;
+using Modules.Transactions.Application.Services;
 
 
 namespace Modules.Transactions.Application.Extensions
@@ -23,6 +25,7 @@ namespace Modules.Transactions.Application.Extensions
             services.AddTransient<AutoApprovalTransactionHandler>();
             services.AddTransient<AdministratorApprovalTransactionHandler>();
             services.AddTransient<ManagerApprovalHandler>();
+            services.AddScoped<ITransactionService, TransactionService>();
 
             services.AddTransient<TransactionApprovalChain>(provider =>
             {

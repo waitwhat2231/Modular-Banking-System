@@ -1,4 +1,5 @@
-﻿using Modules.Transactions.Domain.Entities;
+﻿using Common.SharedClasses.Enums;
+using Modules.Transactions.Domain.Entities;
 
 
 namespace Modules.Transactions.Application.Handlers;
@@ -9,7 +10,7 @@ public class AdministratorApprovalTransactionHandler : TransactionHandler
     {
         if (transaction.Amount > 10000)
         {
-            transaction.Status = Domain.Enums.EnumTransactionStatus.PendingAdmin;
+            transaction.Status = EnumTransactionStatus.PendingAdmin;
 
         }
         return Task.CompletedTask;

@@ -15,7 +15,12 @@ namespace Common.SharedClasses.Repositories
             await dbContext.SaveChangesAsync();
             return entity;
         }
-
+        public async Task<List<T>> AddBatch(List<T> entityList)
+        {
+            dbContext.Set<T>().AddRange(entityList);
+            await dbContext.SaveChangesAsync();
+            return entityList;
+        }
         public async Task SoftDeleteAsync(T entity)
         {
             var property = entity.GetType().GetProperty("IsDeleted");

@@ -1,4 +1,5 @@
-﻿using Common.SharedClasses.Services;
+﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Services;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
 
@@ -13,7 +14,7 @@ namespace Modules.Transactions.Application.CommittingStrategies
             {
                 await accountService.UpdateAccount(accountId: (int)transaction.ToAccountId, balance: transaction.Amount);
                 balanceAdded = true;
-                transaction.Status = Domain.Enums.EnumTransactionStatus.Approved;
+                transaction.Status = EnumTransactionStatus.Approved;
                 transaction.ApprovedAt = DateTime.UtcNow;
                 transaction.ApprovedByUserId = userId;
                 await transactionsRepository.SaveChangesAsync();

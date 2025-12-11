@@ -1,6 +1,6 @@
-﻿using Common.SharedClasses.Services;
+﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Services;
 using Modules.Transactions.Domain.Entities;
-using Modules.Transactions.Domain.Enums;
 using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.CommittingStrategies
