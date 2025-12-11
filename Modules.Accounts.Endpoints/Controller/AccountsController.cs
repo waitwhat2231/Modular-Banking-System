@@ -37,9 +37,9 @@ public class AccountsController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] int pageNum, int pageSize, string userName = "")
     {
-        var result = await mediator.Send(new GetAllAccountsQuery());
+        var result = await mediator.Send(new GetAllAccountsQuery(pageNum, pageSize, userName));
         return Ok(result);
     }
 

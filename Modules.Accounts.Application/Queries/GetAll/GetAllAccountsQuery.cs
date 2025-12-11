@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Modules.Accounts.Application.Queries.GetAll;
 
-public class GetAllAccountsQuery : IRequest<List<AccountDto>>
+public class GetAllAccountsQuery(int pageNum, int pageSize, string userName = "") : IRequest<List<AccountDto>>
 {
-    public int PageNum { get; set; }
-    public int PageSize { get; set; }
-    public string UserName { get; set; } = string.Empty;
+    public int PageNum { get; set; } = pageNum;
+    public int PageSize { get; set; } = pageSize;
+    public string UserName { get; set; } = userName;
 }
