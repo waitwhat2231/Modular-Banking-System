@@ -554,6 +554,17 @@ namespace Modules.Users.Infrastructure.Repositories
 
             return users;
         }
+        public async Task<List<User>> GetAllUsersNotPaginated(string userName)
+        {
+            var query = userDbContext.Users
+           .AsQueryable();
+            if (!string.IsNullOrEmpty(userName))
+                query = query.Where(u => u.UserName.ToLower().Contains(userName.ToLower()));
+
+            var users = await query.ToListAsync();
+
+            return users;
+        }
     }
 }
 

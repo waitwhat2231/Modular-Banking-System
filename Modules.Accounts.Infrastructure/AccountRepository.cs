@@ -22,5 +22,14 @@ public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<
             .Include(a => a.Children)
             .FirstOrDefaultAsync(a => a.Id == accountId);
     }
+    public async Task<List<Account>> GetAccountsFiltered(List<string> userIds, int pageNum, int pageSize)
+    {
+        var accounts = await dbcontext.Accounts.Where(
+            a => userIds.Contains(a.UserId))
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+        return accounts;
+    }
 
 }

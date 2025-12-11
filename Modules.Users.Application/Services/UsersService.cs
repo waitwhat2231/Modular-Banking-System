@@ -21,6 +21,12 @@ namespace Modules.Users.Application.Services
             var result = _mapper.Map<List<MiniUserDto>>(users);
             return result;
         }
+        public async Task<List<MiniUserDto>> GetAllUsersNoPagination(string userName)
+        {
+            var users = await _usersRepository.GetAllUsersNotPaginated(userName);
+            var result = _mapper.Map<List<MiniUserDto>>(users);
+            return result;
+        }
 
         public async Task<UserDto> GetUserById(string userId)
         {

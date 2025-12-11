@@ -22,7 +22,7 @@ public class RegisterUserCommandHandler(IMapper mapper,
         var user = mapper.Map<User>(request);
         var currentUser = userContext.GetCurrentUser();
         var currentUserRole = currentUser != null ? currentUser.Roles.FirstOrDefault().ToUpper() : "NOROLE";
-        if (request.Role.ToUpper() == nameof(EnumRoleNames.Administrator).ToUpper()
+        if (request.Role.ToUpper() != nameof(EnumRoleNames.User).ToUpper()
             && currentUserRole != nameof(EnumRoleNames.Administrator).ToUpper()
             )
         {

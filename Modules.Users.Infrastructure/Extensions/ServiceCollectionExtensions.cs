@@ -14,11 +14,11 @@ public static class ServiceCollectionExtensions
 {
     public static void AddUsersInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        //var connectionString = configuration.GetConnectionString("TemplateDb");
+        var connectionString = configuration.GetConnectionString("Database");
         //"Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"
         //Server=db34639.public.databaseasp.net; Database=db34639; User Id=db34639; Password=3Zk@S_4o=yB8; Encrypt=True; TrustServerCertificate=True; 
         //services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=db34639.public.databaseasp.net; Database=db34639; User Id=db34639; Password=3Zk@S_4o=yB8; Encrypt=True; TrustServerCertificate=True; "));
-        services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BankingSystemDb;Trusted_Connection=True;"));
+        services.AddDbContext<UserDbContext>(options => options.UseSqlServer(connectionString));
 
         //this for identity and jwt when needed
         services.AddIdentityCore<User>()

@@ -36,5 +36,6 @@ namespace Modules.Users.Domain.Repositories
         Task<AuthResponse>? LoginUserWithoutDevice(string email, string password);
         Task<bool> ConfirmEmailAsync(string email, string code);
         Task<List<User>> GetAllPaginatedAsync(int page, int pageSize, string userName);
+        Task<List<User>> GetAllUsersNotPaginated(string userName);
     }
 }
