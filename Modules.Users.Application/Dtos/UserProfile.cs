@@ -10,6 +10,7 @@ namespace Modules.Users.Application.Dtos
         {
             CreateMap<MiniUserDto, User>().ReverseMap();
             CreateMap<RegisterUserCommand, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }
