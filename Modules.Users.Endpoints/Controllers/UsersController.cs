@@ -52,6 +52,7 @@ namespace Modules.Users.Endpoints.Controllers
         {
             var currentUserId = userContext.GetCurrentUser()!.Id;
             var result = await usersService.GetUserById(currentUserId);
+            result.Role = userContext.GetCurrentUser()!.Roles.First();
             return Ok(result);
         }
 
