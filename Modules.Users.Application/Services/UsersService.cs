@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Pagination;
 using Common.SharedClasses.Services;
 using Modules.Users.Application.Dtos;
 using Modules.Users.Domain.Repositories;
@@ -15,11 +16,17 @@ namespace Modules.Users.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<MiniUserDto>> GetAllUsersAsync(int page, int pageSize, string userName)
+        public async Task<PagedEntity<MiniUserDto>> GetAllUsersAsync(int page, int pageSize, string userName)
         {
-            var users = await _usersRepository.GetAllPaginatedAsync(page, pageSize, userName);
-            var result = _mapper.Map<List<MiniUserDto>>(users);
-            return result;
+            var pagedEntity = await _usersRepository.GetAllPaginatedAsync(page, pageSize, userName);
+
+            var resultPaginated = new PagedEntity<MiniUserDto>();
+            resultPaginated.Items = _mapper.Map<List<MiniUserDto>>(pagedEntity.Items);
+            resultPaginated.TotalItems = pagedEntity.TotalItems;
+            resultPaginated.PageNumber = pagedEntity.PageNumber;
+            resultPaginated.PageSize = pagedEntity.PageSize;
+
+            return resultPaginated;
         }
         public async Task<List<MiniUserDto>> GetAllUsersNoPagination(string userName)
         {

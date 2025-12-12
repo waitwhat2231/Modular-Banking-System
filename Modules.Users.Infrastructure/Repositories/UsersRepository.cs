@@ -1,4 +1,5 @@
 ﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Pagination;
 using Common.SharedClasses.Repositories;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Http;
@@ -540,7 +541,7 @@ namespace Modules.Users.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<List<User>> GetAllPaginatedAsync(int page, int pageSize, string userName)
+        public async Task<PagedEntity<User>> GetAllPaginatedAsync(int page, int pageSize, string userName)
         {
             var query = userDbContext.Users
             .Skip((page - 1) * pageSize)
@@ -548,11 +549,17 @@ namespace Modules.Users.Infrastructure.Repositories
             .AsQueryable();
 
             if (!string.IsNullOrEmpty(userName))
-                query = query.Where(u => u.UserName.ToLower().Contains(userName.ToLower()));
+                query = query.Where(u => !string.IsNullOrEmpty(u.UserName) && u.UserName.ToLower().Contains(userName.ToLower()));
 
             var users = await query.ToListAsync();
 
-            return users;
+            var pagedEntity = new PagedEntity<User>();
+            pagedEntity.Items = users;
+            pagedEntity.TotalItems = query.Count();
+            pagedEntity.PageNumber = page;
+            pagedEntity.PageSize = pageSize;
+
+            return pagedEntity;
         }
         public async Task<List<User>> GetAllUsersNotPaginated(string userName)
         {
