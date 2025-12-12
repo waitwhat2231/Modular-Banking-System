@@ -555,7 +555,7 @@ namespace Modules.Users.Infrastructure.Repositories
 
             var pagedEntity = new PagedEntity<User>();
             pagedEntity.Items = users;
-            pagedEntity.TotalItems = query.Count();
+            pagedEntity.TotalItems = userDbContext.Users.Count();
             pagedEntity.PageNumber = page;
             pagedEntity.PageSize = pageSize;
 
