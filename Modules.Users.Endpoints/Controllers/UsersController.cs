@@ -1,4 +1,5 @@
-﻿using Common.SharedClasses.Services;
+﻿using Common.SharedClasses.Pagination;
+using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ namespace Modules.Users.Endpoints.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<List<MiniUserDto>>> GetAllUsers([FromQuery] GetAllUsersQuery query)
+        public async Task<ActionResult<PagedEntity<MiniUserDto>>> GetAllUsers([FromQuery] GetAllUsersQuery query)
         {
             var result = await mediator.Send(query);
             return Ok(result);
