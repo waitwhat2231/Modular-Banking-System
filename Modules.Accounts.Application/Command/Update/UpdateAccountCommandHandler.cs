@@ -16,14 +16,6 @@ public class UpdateAccountCommandHandler(IAccountRepository accountRepository,
         if (account == null)
             throw new InvalidOperationException("Account not found");
 
-        if (!string.IsNullOrWhiteSpace(request.UserId) && account.UserId != request.UserId)
-        {
-            if (account.State == AccountState.Closed)
-                throw new InvalidOperationException("Cannot modify a closed account.");
-
-            account.UserId = request.UserId;
-        }
-
         if (request.ParentAccountId != account.ParentAccountId)
         {
             if (account.State == AccountState.Closed)
