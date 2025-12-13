@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Template.API.Middleware;
 
 namespace Template.API.Extensions
 {
@@ -8,6 +9,7 @@ namespace Template.API.Extensions
     {
         public static void AddPresentation(this WebApplicationBuilder builder)
         {
+            builder.Services.AddScoped<ExceptionHandlerMiddleware>();
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
