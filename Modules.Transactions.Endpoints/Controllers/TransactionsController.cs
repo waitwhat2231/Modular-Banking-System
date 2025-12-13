@@ -15,9 +15,9 @@ namespace Modules.Transactions.Endpoints.Controllers
         [Authorize]
         [Route("{accountId:int}/Withdraw")]
 
-        public async Task<ActionResult> Withdraw([FromRoute] int aaccountId, [FromBody] WithdrawalCommand command)
+        public async Task<ActionResult> Withdraw([FromRoute] int accountId, [FromBody] WithdrawalCommand command)
         {
-            command.AccountId = aaccountId;
+            command.AccountId = accountId;
             await mediator.Send(command);
             return Ok();
         }
@@ -26,9 +26,9 @@ namespace Modules.Transactions.Endpoints.Controllers
         [Authorize]
         [Route("{accountId:int}/Deposit")]
 
-        public async Task<ActionResult> Deposit([FromRoute] int aaccountId, [FromBody] DepositCommand command)
+        public async Task<ActionResult> Deposit([FromRoute] int accountId, [FromBody] DepositCommand command)
         {
-            command.AccountId = aaccountId;
+            command.AccountId = accountId;
             await mediator.Send(command);
             return Ok();
         }
@@ -36,9 +36,9 @@ namespace Modules.Transactions.Endpoints.Controllers
         [Authorize]
         [Route("{accountId:int}/Transfer")]
 
-        public async Task<ActionResult> Withdraw([FromRoute] int aaccountId, [FromBody] TransferCommand command)
+        public async Task<ActionResult> Withdraw([FromRoute] int accountId, [FromBody] TransferCommand command)
         {
-            command.FromAccountId = aaccountId;
+            command.FromAccountId = accountId;
             await mediator.Send(command);
             return Ok();
         }

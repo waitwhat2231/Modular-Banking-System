@@ -11,6 +11,7 @@ using Modules.Users.Infrastructure.Extensions;
 using Modules.Users.Infrastructure.Seeders;
 using System.Text.Json.Serialization;
 using Template.API.Extensions;
+using Template.API.Middleware;
 using Template.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -91,7 +92,7 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions()
 }
     );
 //}
-
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");

@@ -1,6 +1,6 @@
 using Common.SharedClasses.Exceptions;
 
-namespace TripPlanner.API.Middlewares;
+namespace Template.API.Middleware;
 
 public class ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logger) : IMiddleware
 {
