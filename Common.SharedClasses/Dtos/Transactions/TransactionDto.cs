@@ -2,7 +2,7 @@
 
 namespace Common.SharedClasses.Dtos.Transactions
 {
-    public class AddTransactionDto
+    public class TransactionDto
     {
         public int Amount { get; set; }
         public EnumTransactionType Type { get; set; }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Transactions;
 using Common.SharedClasses.Enums;
 using Common.SharedClasses.Services;
 using MediatR;
@@ -13,9 +14,9 @@ namespace Modules.Transactions.Application.Commands.Transfer
     class TransferCommandHandler(
          ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
     IMapper mapper, TransactionApprovalChain approvalHandler, IUserContext userContext
-        ) : IRequestHandler<TransferCommand>
+        ) : IRequestHandler<TransferCommand, TransactionDto>
     {
-        public async Task Handle(TransferCommand request, CancellationToken cancellationToken)
+        public async Task<TransactionDto> Handle(TransferCommand request, CancellationToken cancellationToken)
         {
             bool balanceDeducted = false;
             bool balanceAdded = false;
@@ -36,6 +37,8 @@ namespace Modules.Transactions.Application.Commands.Transfer
                     balanceAdded = true;
                 }
                 await transactionsRepository.AddAsync(transaction);
+                var result = mapper.Map<TransactionDto>(transaction);
+                return result;
             }
             catch (Exception ex)
             {
@@ -48,6 +51,7 @@ namespace Modules.Transactions.Application.Commands.Transfer
                 {
                     await accountService.UpdateAccount(accountId: request.ToAccountId, balance: -1 * request.Amount);
                 }
+                throw;
             }
         }
     }

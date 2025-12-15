@@ -12,7 +12,7 @@ namespace Modules.Transactions.Endpoints.Controllers
     public class TransactionsController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = $"{nameof(EnumRoleNames.Manager)},{nameof(EnumRoleNames.Administrator)}")]
         [Route("{accountId:int}/Withdraw")]
 
         public async Task<ActionResult> Withdraw([FromRoute] int accountId, [FromBody] WithdrawalCommand command)
@@ -23,7 +23,7 @@ namespace Modules.Transactions.Endpoints.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = $"{nameof(EnumRoleNames.Manager)},{nameof(EnumRoleNames.Administrator)}")]
         [Route("{accountId:int}/Deposit")]
 
         public async Task<ActionResult> Deposit([FromRoute] int accountId, [FromBody] DepositCommand command)
@@ -34,11 +34,11 @@ namespace Modules.Transactions.Endpoints.Controllers
         }
         [HttpPost]
         [Authorize]
-        [Route("{accountId:int}/Transfer")]
+        [Route("{fromAccountId:int}/Transfer")]
 
-        public async Task<ActionResult> Withdraw([FromRoute] int accountId, [FromBody] TransferCommand command)
+        public async Task<ActionResult> Withdraw([FromRoute] int fromAccountId, [FromBody] TransferCommand command)
         {
-            command.FromAccountId = accountId;
+            command.FromAccountId = fromAccountId;
             await mediator.Send(command);
             return Ok();
         }

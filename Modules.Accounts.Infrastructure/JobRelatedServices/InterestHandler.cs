@@ -11,11 +11,11 @@ public class InterestHandler(ITransactionService transactionService, IAccountRep
     public async Task ApplyInterestToAllAccounts()
     {
         var accounts = await accountRepository.GetAllAsync();
-        List<AddTransactionDto> transactions = [];
+        List<TransactionDto> transactions = [];
         foreach (var account in accounts)
         {
             account.Balance += account.AccuredInterest;
-            transactions.Add(new AddTransactionDto()
+            transactions.Add(new TransactionDto()
             {
                 ToAccountId = account.Id,
                 Amount = account.AccuredInterest,

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Transactions;
 using Common.SharedClasses.Enums;
 using Common.SharedClasses.Services;
 using MediatR;
@@ -13,9 +14,9 @@ namespace Modules.Transactions.Application.Commands.Withdrawal;
 public class WithdrawalCommandHandler(
     ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
     IMapper mapper, TransactionApprovalChain approvalHandler
-    ) : IRequestHandler<WithdrawalCommand>
+    ) : IRequestHandler<WithdrawalCommand, TransactionDto>
 {
-    public async Task Handle(WithdrawalCommand request, CancellationToken cancellationToken)
+    public async Task<TransactionDto> Handle(WithdrawalCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Beginning Withdrawal Transaction");
         bool balanceDeducted = false;
@@ -32,6 +33,8 @@ public class WithdrawalCommandHandler(
                 balanceDeducted = true;
             }
             await transactionsRepository.AddAsync(transaction);
+            var result = mapper.Map<TransactionDto>(transaction);
+            return result;
         }
         catch (Exception ex)
         {
@@ -40,6 +43,7 @@ public class WithdrawalCommandHandler(
             {
                 await accountService.UpdateAccount(accountId: request.AccountId, balance: request.Amount);
             }
+            throw;
         }
     }
 }

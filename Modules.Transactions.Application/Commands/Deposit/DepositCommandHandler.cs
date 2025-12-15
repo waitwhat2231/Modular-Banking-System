@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Transactions;
 using Common.SharedClasses.Enums;
 using Common.SharedClasses.Services;
 using MediatR;
@@ -11,9 +12,9 @@ namespace Modules.Transactions.Application.Commands.Deposit
 {
     public class DepositCommandHandler(
         ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
-        IMapper mapper, TransactionApprovalChain approvalHandler) : IRequestHandler<DepositCommand>
+        IMapper mapper, TransactionApprovalChain approvalHandler) : IRequestHandler<DepositCommand, TransactionDto>
     {
-        public async Task Handle(DepositCommand request, CancellationToken cancellationToken)
+        public async Task<TransactionDto> Handle(DepositCommand request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Beginning Deposit Transaction");
             bool balanceAdded = false;
@@ -30,12 +31,15 @@ namespace Modules.Transactions.Application.Commands.Deposit
                     balanceAdded = true;
                 }
                 await transactionsRepository.AddAsync(transaction);
+                var result = mapper.Map<TransactionDto>(transaction);
+                return result;
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
                 await accountService.UpdateAccount(accountId: request.AccountId, balance: -1 * request.Amount);
                 balanceAdded = true;
+                throw;
             }
 
         }

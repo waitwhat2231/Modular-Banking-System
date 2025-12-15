@@ -4,7 +4,7 @@ namespace Common.SharedClasses.Services
 {
     public interface ITransactionService
     {
-        public Task AddTransaction(AddTransactionDto addTransactionDto);
-        Task AddTransactionBatch(List<AddTransactionDto> transactionList);
+        public Task AddTransaction(TransactionDto addTransactionDto);
+        Task AddTransactionBatch(List<TransactionDto> transactionList);
     }
 }

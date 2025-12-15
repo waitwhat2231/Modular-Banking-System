@@ -8,12 +8,12 @@ namespace Modules.Transactions.Application.Services;
 
 public class TransactionService(ITransactionsRepository transactionsRepository, IMapper mapper) : ITransactionService
 {
-    public async Task AddTransaction(AddTransactionDto addTransactionDto)
+    public async Task AddTransaction(TransactionDto addTransactionDto)
     {
         var trans = mapper.Map<Transaction>(addTransactionDto);
         await transactionsRepository.AddAsync(trans);
     }
-    public async Task AddTransactionBatch(List<AddTransactionDto> transactionList)
+    public async Task AddTransactionBatch(List<TransactionDto> transactionList)
     {
         var trans = mapper.Map<List<Transaction>>(transactionList);
         await transactionsRepository.AddBatch(trans);

@@ -12,7 +12,7 @@ namespace Modules.Transactions.Application.Profiles
             CreateMap<Transaction, DepositCommand>().ReverseMap();
             CreateMap<Transaction, WithdrawalCommand>().ReverseMap();
             CreateMap<Transaction, TransferCommand>().ReverseMap();
-            CreateMap<Transaction, AddTransactionDto>().ReverseMap();
+            CreateMap<Transaction, TransactionDto>().ReverseMap();
         }
     }
 }
