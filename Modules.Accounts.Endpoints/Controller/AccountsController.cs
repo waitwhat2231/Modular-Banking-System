@@ -1,5 +1,6 @@
 ﻿using Common.SharedClasses.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Accounts.Application.Command.ChangeState;
 using Modules.Accounts.Application.Command.Create;
@@ -15,6 +16,7 @@ namespace Modules.Accounts.Endpoints.Controller;
 public class AccountsController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateAccountCommand command)
     {
         var result = await mediator.Send(command);
