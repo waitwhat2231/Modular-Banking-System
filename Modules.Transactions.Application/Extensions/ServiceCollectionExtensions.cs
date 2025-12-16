@@ -30,8 +30,8 @@ namespace Modules.Transactions.Application.Extensions
             services.AddTransient<TransactionApprovalChain>(provider =>
             {
                 var auto = provider.GetRequiredService<AutoApprovalHandler>();
-                var mgr = provider.GetRequiredService<AdministratorApprovalHandler>();
-                var adm = provider.GetRequiredService<ManagerApprovalHandler>();
+                var adm = provider.GetRequiredService<AdministratorApprovalHandler>();
+                var mgr = provider.GetRequiredService<ManagerApprovalHandler>();
 
                 auto.SetNext(mgr).SetNext(adm);
 
