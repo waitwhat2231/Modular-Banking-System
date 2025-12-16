@@ -19,8 +19,8 @@ namespace Modules.Transactions.Endpoints.Controllers
         public async Task<ActionResult> Withdraw([FromRoute] int accountId, [FromBody] WithdrawalCommand command)
         {
             command.AccountId = accountId;
-            await mediator.Send(command);
-            return Ok();
+            var res = await mediator.Send(command);
+            return Ok(res);
         }
 
         [HttpPost]
@@ -30,8 +30,8 @@ namespace Modules.Transactions.Endpoints.Controllers
         public async Task<ActionResult> Deposit([FromRoute] int accountId, [FromBody] DepositCommand command)
         {
             command.AccountId = accountId;
-            await mediator.Send(command);
-            return Ok();
+            var res = await mediator.Send(command);
+            return Ok(res);
         }
         [HttpPost]
         [Authorize]
@@ -40,8 +40,8 @@ namespace Modules.Transactions.Endpoints.Controllers
         public async Task<ActionResult> Withdraw([FromRoute] int fromAccountId, [FromBody] TransferCommand command)
         {
             command.FromAccountId = fromAccountId;
-            await mediator.Send(command);
-            return Ok();
+            var res = await mediator.Send(command);
+            return Ok(res);
         }
         [HttpPost]
         [Authorize(Roles = $"{nameof(EnumRoleNames.Manager)},{nameof(EnumRoleNames.Administrator)}")]
