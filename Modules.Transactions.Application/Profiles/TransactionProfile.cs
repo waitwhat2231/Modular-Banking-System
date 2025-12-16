@@ -13,6 +13,7 @@ namespace Modules.Transactions.Application.Profiles
             CreateMap<Transaction, WithdrawalCommand>().ReverseMap();
             CreateMap<Transaction, TransferCommand>().ReverseMap();
             CreateMap<Transaction, TransactionDto>().ReverseMap();
+            CreateMap<TransactionApprovalRules, TransactionRulesDto>().ReverseMap();
         }
     }
 }

@@ -4,10 +4,10 @@ using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.Handlers;
 
-public class AutoApprovalTransactionHandler : TransactionHandler
+public class AutoApprovalHandler : TransactionHandler
 {
     private readonly ITransactionRulesRepository _txrulesRepository;
-    public AutoApprovalTransactionHandler(ITransactionRulesRepository transactionRulesRepository)
+    public AutoApprovalHandler(ITransactionRulesRepository transactionRulesRepository)
     {
         _txrulesRepository = transactionRulesRepository;
     }

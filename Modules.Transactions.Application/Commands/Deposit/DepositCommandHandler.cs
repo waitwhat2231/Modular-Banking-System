@@ -22,6 +22,7 @@ namespace Modules.Transactions.Application.Commands.Deposit
             {
                 var transaction = mapper.Map<Transaction>(request);
                 transaction.CreatedAt = DateTime.UtcNow;
+                transaction.Status = EnumTransactionStatus.Rejected;
                 transaction.TransactionType = EnumTransactionType.Deposit;
                 transaction.ToAccountId = request.AccountId;
                 await approvalHandler.ExecuteAsync(transaction);

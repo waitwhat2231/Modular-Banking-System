@@ -27,6 +27,7 @@ namespace Modules.Transactions.Application.Commands.Transfer
                 var sender = userContext.GetCurrentUser();
                 var transaction = mapper.Map<Transaction>(request);
                 transaction.CreatedAt = DateTime.UtcNow;
+                transaction.Status = EnumTransactionStatus.Rejected;
                 transaction.TransactionType = EnumTransactionType.Transfer;
                 await approvalHandler.ExecuteAsync(transaction);
                 if (transaction.Status == EnumTransactionStatus.Approved)

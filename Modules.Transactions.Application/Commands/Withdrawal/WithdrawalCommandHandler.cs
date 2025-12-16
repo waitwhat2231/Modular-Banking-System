@@ -24,6 +24,7 @@ public class WithdrawalCommandHandler(
         {
             var transaction = mapper.Map<Transaction>(request);
             transaction.CreatedAt = DateTime.UtcNow;
+            transaction.Status = EnumTransactionStatus.Rejected;
             transaction.FromAccountId = request.AccountId;
             transaction.TransactionType = EnumTransactionType.Withdrawal;
             await approvalHandler.ExecuteAsync(transaction);

@@ -2,20 +2,19 @@
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
 
+
 namespace Modules.Transactions.Application.Handlers;
 
-public class ManagerApprovalHandler(ITransactionRulesRepository transactionRulesRepository) : TransactionHandler
+public class AdministratorApprovalHandler(ITransactionRulesRepository transactionRulesRepository) : TransactionHandler
 {
-    public override async Task HandleAsync(Transaction transaction)
+    public async override Task HandleAsync(Transaction transaction)
     {
         var transactionRule = await transactionRulesRepository.GetRuleFromHandlerName(GetType().Name);
         if (transaction.Amount > transactionRule.MinAmount && transaction.Amount <= transactionRule.MaxAmount)
         {
-            transaction.Status = EnumTransactionStatus.PendingManager;
-            return;
-        }
+            transaction.Status = EnumTransactionStatus.PendingAdmin;
 
-        if (_next != null)
-            await _next.HandleAsync(transaction);
+        }
+        return;
     }
 }

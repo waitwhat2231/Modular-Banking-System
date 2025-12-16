@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Transactions.Application.Commands;
 using Modules.Transactions.Application.Commands.ChangeStatus;
+using Modules.Transactions.Application.Queries;
 
 namespace Modules.Transactions.Endpoints.Controllers
 {
@@ -63,6 +64,13 @@ namespace Modules.Transactions.Endpoints.Controllers
         {
             var result = EnumHelper.ToEnumDtoList<EnumTransactionType>();
             return Ok(result);
+        }
+        [HttpGet("Rules")]
+        [Authorize(Roles = nameof(EnumRoleNames.Administrator))]
+        public async Task<ActionResult> GetTransactionRules()
+        {
+            await mediator.Send(new GetTransactionRulesQuery());
+            return Ok();
         }
 
 

@@ -22,15 +22,15 @@ namespace Modules.Transactions.Application.Extensions
                     .AddFluentValidationAutoValidation();
 
             services.AddAutoMapper(applicationAssembly);
-            services.AddTransient<AutoApprovalTransactionHandler>();
-            services.AddTransient<AdministratorApprovalTransactionHandler>();
+            services.AddTransient<AutoApprovalHandler>();
+            services.AddTransient<AdministratorApprovalHandler>();
             services.AddTransient<ManagerApprovalHandler>();
             services.AddScoped<ITransactionService, TransactionService>();
 
             services.AddTransient<TransactionApprovalChain>(provider =>
             {
-                var auto = provider.GetRequiredService<AutoApprovalTransactionHandler>();
-                var mgr = provider.GetRequiredService<AdministratorApprovalTransactionHandler>();
+                var auto = provider.GetRequiredService<AutoApprovalHandler>();
+                var mgr = provider.GetRequiredService<AdministratorApprovalHandler>();
                 var adm = provider.GetRequiredService<ManagerApprovalHandler>();
 
                 auto.SetNext(mgr).SetNext(adm);

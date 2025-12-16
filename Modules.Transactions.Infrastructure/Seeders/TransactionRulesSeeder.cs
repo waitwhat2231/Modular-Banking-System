@@ -21,19 +21,20 @@ internal class TransactionRulesSeeder(TransactionsDbContext transactionsDbContex
     {
         List<TransactionApprovalRules> transactionApprovalRules = [
             new (){
-                HandlerName = "AutoApprovalTransactionHandler",
+                HandlerName = "AutoApprovalHandler",
                 MinAmount = 0,
                 MaxAmount = 1000,
             },
             new (){
                 HandlerName = "ManagerApprovalHandler ",
-                MinAmount = 1001,
+                MinAmount = 100,
                 MaxAmount = 10000,
             },
             new (){
                 HandlerName = "AdministratorApprovalHandler ",
                 MinAmount = 10000,
-                MaxAmount = null,
+                MaxAmount = 100000,
+
             },
             ];
         return transactionApprovalRules;
