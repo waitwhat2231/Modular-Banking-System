@@ -13,7 +13,8 @@ public class AutoApprovalHandler : TransactionHandler
     }
     public override async Task HandleAsync(Transaction tx)
     {
-        var transactionRule = await _txrulesRepository.GetRuleFromHandlerName(GetType().Name);
+        string name = GetType().Name;
+        var transactionRule = await _txrulesRepository.GetRuleFromHandlerName(name);
         if (tx.Amount <= transactionRule.MaxAmount && transactionRule.IsActive)
         {
             tx.Status = EnumTransactionStatus.Approved;

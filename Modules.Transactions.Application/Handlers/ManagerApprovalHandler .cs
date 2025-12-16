@@ -8,7 +8,8 @@ public class ManagerApprovalHandler(ITransactionRulesRepository transactionRules
 {
     public override async Task HandleAsync(Transaction transaction)
     {
-        var transactionRule = await transactionRulesRepository.GetRuleFromHandlerName(GetType().Name);
+        string name = GetType().Name;
+        var transactionRule = await transactionRulesRepository.GetRuleFromHandlerName(name);
         if (transaction.Amount > transactionRule.MinAmount && transaction.Amount <= transactionRule.MaxAmount)
         {
             transaction.Status = EnumTransactionStatus.PendingManager;

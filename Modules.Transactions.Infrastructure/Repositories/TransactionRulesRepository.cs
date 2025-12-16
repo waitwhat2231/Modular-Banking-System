@@ -12,7 +12,7 @@ namespace Modules.Transactions.Infrastructure.Repositories
 
         public async Task<TransactionApprovalRules> GetRuleFromHandlerName(string handlerName)
         {
-            return await _transactionsDbContext.TransactionRules.FirstOrDefaultAsync(txrule => txrule.HandlerName == handlerName);
+            return await _transactionsDbContext.TransactionRules.FirstOrDefaultAsync(txrule => txrule.HandlerName.Contains(handlerName));
         }
     }
 }

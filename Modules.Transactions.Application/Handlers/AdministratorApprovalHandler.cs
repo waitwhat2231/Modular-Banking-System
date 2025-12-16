@@ -9,7 +9,8 @@ public class AdministratorApprovalHandler(ITransactionRulesRepository transactio
 {
     public async override Task HandleAsync(Transaction transaction)
     {
-        var transactionRule = await transactionRulesRepository.GetRuleFromHandlerName(GetType().Name);
+        string name = GetType().Name;
+        var transactionRule = await transactionRulesRepository.GetRuleFromHandlerName(name);
         if (transaction.Amount > transactionRule.MinAmount && transaction.Amount <= transactionRule.MaxAmount)
         {
             transaction.Status = EnumTransactionStatus.PendingAdmin;

@@ -1,9 +1,11 @@
-﻿using Common.SharedClasses.Repositories;
+﻿using Common.SharedClasses.Pagination;
+using Common.SharedClasses.Repositories;
 using Modules.Transactions.Domain.Entities;
 
 namespace Modules.Transactions.Domain.Repositories
 {
     public interface ITransactionsRepository : IGenericRepository<Transaction>
     {
+        public Task<PagedEntity<Transaction>> GetTrnasctionsPaged(int pageNum, int pageSize);
     }
 }

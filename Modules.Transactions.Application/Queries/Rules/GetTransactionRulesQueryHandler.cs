@@ -3,7 +3,7 @@ using Common.SharedClasses.Dtos.Transactions;
 using MediatR;
 using Modules.Transactions.Domain.Repositories;
 
-namespace Modules.Transactions.Application.Queries
+namespace Modules.Transactions.Application.Queries.Rules
 {
     public class GetTransactionRulesQueryHandler(ITransactionRulesRepository transactionRulesRepository, IMapper mapper) : IRequestHandler<GetTransactionRulesQuery, List<TransactionRulesDto>>
     {

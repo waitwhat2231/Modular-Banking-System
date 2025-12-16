@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Transactions.Application.Commands;
 using Modules.Transactions.Application.Commands.ChangeStatus;
-using Modules.Transactions.Application.Queries;
+using Modules.Transactions.Application.Queries.Rules;
 
 namespace Modules.Transactions.Endpoints.Controllers
 {
