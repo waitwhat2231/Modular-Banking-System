@@ -24,6 +24,7 @@ namespace Modules.Transactions.Application.Commands.Transfer
 
             try
             {
+                var account = await accountService.GetAccountFromId(request.FromAccountId, false);
                 var sender = userContext.GetCurrentUser();
                 var transaction = mapper.Map<Transaction>(request);
                 transaction.CreatedAt = DateTime.UtcNow;
@@ -32,6 +33,10 @@ namespace Modules.Transactions.Application.Commands.Transfer
                 await approvalHandler.ExecuteAsync(transaction);
                 if (transaction.Status == EnumTransactionStatus.Approved)
                 {
+                    if (transaction.Amount > account.Balance)
+                    {
+                        throw new InvalidOperationException("Account does not have enough balance");
+                    }
                     await accountService.UpdateAccount(accountId: request.FromAccountId, balance: -1 * transaction.Amount);
                     balanceDeducted = true;
                     await accountService.UpdateAccount(accountId: request.ToAccountId, balance: transaction.Amount);

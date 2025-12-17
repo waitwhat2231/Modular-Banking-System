@@ -12,6 +12,11 @@ namespace Modules.Transactions.Application.CommittingStrategies
             bool balanceDeducted = false;
             try
             {
+                var fromAccount = await accountService.GetAccountFromId((int)transaction.FromAccountId, false);
+                if (fromAccount.Balance < transaction.Amount)
+                {
+                    throw new InvalidOperationException("Account does not have enough ");
+                }
                 await accountService.UpdateAccount(accountId: (int)transaction.FromAccountId, balance: -1 * transaction.Amount);
                 balanceDeducted = true;
                 transaction.ApprovedAt = DateTime.UtcNow;

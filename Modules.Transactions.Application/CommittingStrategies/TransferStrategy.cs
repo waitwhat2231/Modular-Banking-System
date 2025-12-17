@@ -13,6 +13,11 @@ namespace Modules.Transactions.Application.CommittingStrategies
             var balanceAdded = false;
             try
             {
+                var fromAccount = await accountService.GetAccountFromId((int)transaction.FromAccountId, false);
+                if (fromAccount.Balance < transaction.Amount)
+                {
+                    throw new InvalidOperationException("Account does not have enough ");
+                }
                 transaction.CreatedAt = DateTime.UtcNow;
                 transaction.TransactionType = EnumTransactionType.Transfer;
                 await accountService.UpdateAccount(accountId: (int)transaction.FromAccountId, balance: -1 * transaction.Amount);

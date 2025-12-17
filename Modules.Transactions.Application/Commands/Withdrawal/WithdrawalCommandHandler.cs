@@ -22,6 +22,7 @@ public class WithdrawalCommandHandler(
         bool balanceDeducted = false;
         try
         {
+            var account = await accountService.GetAccountFromId(request.AccountId, false);
             var transaction = mapper.Map<Transaction>(request);
             transaction.CreatedAt = DateTime.UtcNow;
             transaction.Status = EnumTransactionStatus.Rejected;
@@ -30,6 +31,10 @@ public class WithdrawalCommandHandler(
             await approvalHandler.ExecuteAsync(transaction);
             if (transaction.Status == EnumTransactionStatus.Approved)
             {
+                if (transaction.Amount > account.Balance)
+                {
+                    throw new InvalidOperationException("Account does not have Enough Balance");
+                }
                 await accountService.UpdateAccount(accountId: request.AccountId, balance: -1 * transaction.Amount);
                 balanceDeducted = true;
             }
