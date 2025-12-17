@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Transactions.Application.Commands;
 using Modules.Transactions.Application.Commands.ChangeStatus;
+using Modules.Transactions.Application.Queries.GetAll;
+using Modules.Transactions.Application.Queries.GetById;
 using Modules.Transactions.Application.Queries.Rules;
 
 namespace Modules.Transactions.Endpoints.Controllers
@@ -12,6 +14,22 @@ namespace Modules.Transactions.Endpoints.Controllers
     [Route("/api/[controller]")]
     public class TransactionsController(IMediator mediator) : ControllerBase
     {
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetTransactions([FromQuery] int pageNum, int pageSize, int? accountId, DateTime? from, DateTime? to)
+        {
+            var res = await mediator.Send(new GetTransactionsQuery(pageNum, pageSize, accountId, from, to));
+            return Ok(res);
+        }
+        [HttpGet("{id:int}")]
+        [Authorize]
+
+        public async Task<IActionResult> GetTransactionById([FromRoute] int id)
+        {
+            var res = await mediator.Send(new GetTransactionByIdQuery(id));
+            return Ok(res);
+        }
+
         [HttpPost]
         [Authorize(Roles = $"{nameof(EnumRoleNames.Manager)},{nameof(EnumRoleNames.Administrator)}")]
         [Route("{accountId:int}/Withdraw")]
@@ -69,8 +87,9 @@ namespace Modules.Transactions.Endpoints.Controllers
         [Authorize(Roles = nameof(EnumRoleNames.Administrator))]
         public async Task<ActionResult> GetTransactionRules()
         {
-            await mediator.Send(new GetTransactionRulesQuery());
-            return Ok();
+
+            var res = await mediator.Send(new GetTransactionRulesQuery());
+            return Ok(res);
         }
 
 

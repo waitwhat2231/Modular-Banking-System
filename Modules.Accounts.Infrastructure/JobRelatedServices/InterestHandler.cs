@@ -22,7 +22,7 @@ public class InterestHandler(ITransactionService transactionService, IAccountRep
                 ApprovedByUserId = "System",
                 ApprovedAt = DateTime.UtcNow,
                 Status = Common.SharedClasses.Enums.EnumTransactionStatus.Approved,
-                Type = Common.SharedClasses.Enums.EnumTransactionType.Routine,
+                TransactionType = Common.SharedClasses.Enums.EnumTransactionType.Routine,
             });
         }
         using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

@@ -25,17 +25,16 @@ public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<
     }
     public async Task<PagedEntity<Account>> GetAccountsFiltered(List<string> userIds, int pageNum, int pageSize)
     {
-        var accounts = await dbcontext.Accounts.Where(
-            a => userIds.Contains(a.UserId))
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+        var accounts = dbcontext.Accounts.Where(
+            a => userIds.Contains(a.UserId));
         var result = new PagedEntity<Account>()
         {
-            Items = accounts,
+            Items = await accounts.Skip((pageNum - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(),
             PageNumber = pageNum,
             PageSize = pageSize,
-            TotalItems = dbcontext.Accounts.Count()
+            TotalItems = accounts.Count()
 
         };
         return result;

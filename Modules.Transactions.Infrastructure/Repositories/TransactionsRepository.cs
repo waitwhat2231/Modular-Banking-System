@@ -11,9 +11,23 @@ namespace Modules.Transactions.Infrastructure.Repositories
     {
         private readonly TransactionsDbContext _transactiondbcontext = dbContext;
 
-        public async Task<PagedEntity<Transaction>> GetTrnasctionsPaged(int pageNum, int pageSize)
+        public async Task<PagedEntity<Transaction>> GetTransactionsPaged(int pageNum, int pageSize, List<int>? accountIds, DateTime? from, DateTime? to)
         {
-            var transactions = await _transactiondbcontext.Transactions
+            var query = _transactiondbcontext.Transactions.AsQueryable();
+            if (accountIds != null && accountIds.Any())
+            {
+                query = query.Where(t => (t.FromAccountId != null && accountIds.Contains((int)t.FromAccountId)) ||
+                (t.ToAccountId != null && accountIds.Contains((int)t.ToAccountId)));
+            }
+            if (from != null)
+            {
+                query = query.Where(t => t.CreatedAt >= from);
+            }
+            if (to != null)
+            {
+                query = query.Where(t => t.CreatedAt <= to);
+            }
+            var transactions = await query
            .Skip((pageNum - 1) * pageSize)
            .Take(pageSize)
            .ToListAsync();
@@ -22,7 +36,7 @@ namespace Modules.Transactions.Infrastructure.Repositories
                 Items = transactions,
                 PageNumber = pageNum,
                 PageSize = pageSize,
-                TotalItems = _transactiondbcontext.Transactions.Count()
+                TotalItems = query.Count()
 
             };
             return result;

@@ -6,6 +6,6 @@ namespace Modules.Transactions.Domain.Repositories
 {
     public interface ITransactionsRepository : IGenericRepository<Transaction>
     {
-        public Task<PagedEntity<Transaction>> GetTrnasctionsPaged(int pageNum, int pageSize);
+        public Task<PagedEntity<Transaction>> GetTransactionsPaged(int pageNum, int pageSize, List<int>? accountIds, DateTime? from, DateTime? to);
     }
 }

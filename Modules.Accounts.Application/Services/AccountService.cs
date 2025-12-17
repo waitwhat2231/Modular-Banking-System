@@ -14,6 +14,12 @@ namespace Modules.Accounts.Application.Services
             var result = mapper.Map<AccountDto>(account);
             return result;
         }
+        public async Task<List<AccountDto>> GetAccountsForUser(string userId, bool tracking = true)
+        {
+            var accounts = await accountRepository.GetByUserIdAsync(userId);
+            var res = mapper.Map<List<AccountDto>>(accounts);
+            return res;
+        }
         public async Task UpdateAccount(int accountId, string? userId = null, int? parentAccountId = null, AccountState? accountState = null,
             AccountType? accountType = null, int? balance = null)
         {
