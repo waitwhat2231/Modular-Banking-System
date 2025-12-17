@@ -26,7 +26,7 @@ namespace Modules.Transactions.Application.Queries.GetAll
             }
 
             var transactions = await transactionsRepository.GetTransactionsPaged(request.PageNum, request.PageSize, accountIds, request.From, request.To, request.Type, request.Status);
-            var userIds = transactions.Items.Where(t => t.ApprovedByUserId != null).Select(t => t.ApprovedByUserId).ToList();
+            var userIds = transactions.Items.Where(t => t.ApprovedByUserId != null && t.ApprovedByUserId != "System").Select(t => t.ApprovedByUserId).ToList();
             var users = await userService.GetUsersFromIds(userIds);
             var userLookups = users.ToDictionary(u => u.Id, u => u.UserName);
             var res = new PagedEntity<TransactionDto>()
@@ -38,10 +38,15 @@ namespace Modules.Transactions.Application.Queries.GetAll
             };
             foreach (var item in res.Items)
             {
-                if (item.ApprovedByUserId != null)
+                if (item.ApprovedByUserId != null && item.ApprovedByUserId != "System")
                 {
                     item.ApprovedByUserName = userLookups[item.ApprovedByUserId];
                 }
+                if (item.ApprovedByUserId == "System")
+                {
+                    item.ApprovedByUserName = "System";
+                }
+
             }
             return res;
         }
