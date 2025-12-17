@@ -572,6 +572,12 @@ namespace Modules.Users.Infrastructure.Repositories
 
             return users;
         }
+
+        public async Task<List<User>> GetUsersWithIdList(List<string> userIds)
+        {
+            return await userDbContext.Users
+         .Where(u => userIds.Contains(u.Id)).ToListAsync();
+        }
     }
 }
 

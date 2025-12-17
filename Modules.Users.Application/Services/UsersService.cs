@@ -41,5 +41,14 @@ namespace Modules.Users.Application.Services
             var result = _mapper.Map<UserDto>(user);
             return result;
         }
+
+        public async Task<List<MiniUserDto>> GetUsersFromIds(List<string> userIds)
+        {
+            var users = await _usersRepository.GetUsersWithIdList(userIds);
+            var result = _mapper.Map<List<MiniUserDto>>(users);
+            return result;
+
+
+        }
     }
 }

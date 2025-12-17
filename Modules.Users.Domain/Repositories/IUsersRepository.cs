@@ -8,6 +8,7 @@ namespace Modules.Users.Domain.Repositories
 
     public interface IUsersRepository : IGenericRepository<User>
     {
+        Task<List<User>> GetUsersWithIdList(List<string> userIds);
         Task<bool> CheckPassword(string userId, string password);
         Task<User> GetUserAsync(string id);
         Task<User> FindUserByEmail(string email);

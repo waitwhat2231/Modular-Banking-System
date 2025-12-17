@@ -11,6 +11,7 @@ namespace Common.SharedClasses.Dtos.Transactions
         public int? FromAccountId { get; set; }
         public int? ToAccountId { get; set; }
         public string? ApprovedByUserId { get; set; }
+        public string? ApprovedByUserName { get; set; }
 
         public DateTime? ApprovedAt { get; set; }
     }
