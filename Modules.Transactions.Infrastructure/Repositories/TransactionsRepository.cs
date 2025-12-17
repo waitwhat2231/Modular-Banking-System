@@ -28,7 +28,7 @@ namespace Modules.Transactions.Infrastructure.Repositories
             {
                 query = query.Where(t => t.CreatedAt <= to);
             }
-            if (type != null)
+            if (type.HasValue)
             {
                 query = query.Where(t => t.TransactionType == type);
             }
