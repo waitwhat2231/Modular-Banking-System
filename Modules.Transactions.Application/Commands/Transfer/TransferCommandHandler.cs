@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.SharedClasses.Dtos.Transactions;
 using Common.SharedClasses.Enums;
+using Common.SharedClasses.Exceptions;
 using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -35,7 +36,7 @@ namespace Modules.Transactions.Application.Commands.Transfer
                 {
                     if (transaction.Amount > account.Balance)
                     {
-                        throw new InvalidOperationException("Account does not have enough balance");
+                        throw new NoBalanceException(request.FromAccountId);
                     }
                     await accountService.UpdateAccount(accountId: request.FromAccountId, balance: -1 * transaction.Amount);
                     balanceDeducted = true;

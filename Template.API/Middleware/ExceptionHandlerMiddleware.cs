@@ -17,6 +17,14 @@ public class ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logg
             context.Response.StatusCode = 404;
             await context.Response.WriteAsync(notFound.Message);
         }
+        catch (NoBalanceException nb)
+        {
+            logger.LogWarning(nb.Message);
+
+            context.Response.StatusCode = 404;
+            await context.Response.WriteAsync(nb.Message);
+        }
+
         catch (ForbiddenException forbidden)
         {
             logger.LogWarning(forbidden.Message);

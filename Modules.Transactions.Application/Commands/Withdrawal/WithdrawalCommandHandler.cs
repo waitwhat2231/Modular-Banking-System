@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.SharedClasses.Dtos.Transactions;
 using Common.SharedClasses.Enums;
+using Common.SharedClasses.Exceptions;
 using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -33,7 +34,7 @@ public class WithdrawalCommandHandler(
             {
                 if (transaction.Amount > account.Balance)
                 {
-                    throw new InvalidOperationException("Account does not have Enough Balance");
+                    throw new NoBalanceException(request.AccountId);
                 }
                 await accountService.UpdateAccount(accountId: request.AccountId, balance: -1 * transaction.Amount);
                 balanceDeducted = true;

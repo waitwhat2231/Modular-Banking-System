@@ -1,4 +1,5 @@
 ﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Exceptions;
 using Common.SharedClasses.Services;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
@@ -15,7 +16,7 @@ namespace Modules.Transactions.Application.CommittingStrategies
                 var fromAccount = await accountService.GetAccountFromId((int)transaction.FromAccountId, false);
                 if (fromAccount.Balance < transaction.Amount)
                 {
-                    throw new InvalidOperationException("Account does not have enough ");
+                    throw new NoBalanceException((int)transaction.FromAccountId);
                 }
                 await accountService.UpdateAccount(accountId: (int)transaction.FromAccountId, balance: -1 * transaction.Amount);
                 balanceDeducted = true;
