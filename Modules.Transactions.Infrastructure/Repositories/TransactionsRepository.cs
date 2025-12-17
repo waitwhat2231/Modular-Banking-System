@@ -1,4 +1,5 @@
-﻿using Common.SharedClasses.Pagination;
+﻿using Common.SharedClasses.Enums;
+using Common.SharedClasses.Pagination;
 using Common.SharedClasses.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Modules.Transactions.Domain.Entities;
@@ -11,7 +12,7 @@ namespace Modules.Transactions.Infrastructure.Repositories
     {
         private readonly TransactionsDbContext _transactiondbcontext = dbContext;
 
-        public async Task<PagedEntity<Transaction>> GetTransactionsPaged(int pageNum, int pageSize, List<int>? accountIds, DateTime? from, DateTime? to)
+        public async Task<PagedEntity<Transaction>> GetTransactionsPaged(int pageNum, int pageSize, List<int>? accountIds, DateTime? from, DateTime? to, EnumTransactionType? type, EnumTransactionStatus? status)
         {
             var query = _transactiondbcontext.Transactions.AsQueryable();
             if (accountIds != null && accountIds.Any())
@@ -26,6 +27,14 @@ namespace Modules.Transactions.Infrastructure.Repositories
             if (to != null)
             {
                 query = query.Where(t => t.CreatedAt <= to);
+            }
+            if (type != null)
+            {
+                query = query.Where(t => t.TransactionType == type);
+            }
+            if (status != null)
+            {
+                query = query.Where(t => t.Status == status);
             }
             var transactions = await query
            .Skip((pageNum - 1) * pageSize)

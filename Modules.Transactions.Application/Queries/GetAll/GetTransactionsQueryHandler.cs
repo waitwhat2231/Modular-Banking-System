@@ -25,7 +25,7 @@ namespace Modules.Transactions.Application.Queries.GetAll
                 accountIds.Add((int)request.AccountId);
             }
 
-            var transactions = await transactionsRepository.GetTransactionsPaged(request.PageNum, request.PageSize, accountIds, request.From, request.To);
+            var transactions = await transactionsRepository.GetTransactionsPaged(request.PageNum, request.PageSize, accountIds, request.From, request.To, request.Type, request.Status);
             var res = new PagedEntity<TransactionDto>()
             {
                 Items = mapper.Map<List<TransactionDto>>(transactions.Items),

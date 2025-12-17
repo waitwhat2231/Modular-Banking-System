@@ -16,9 +16,9 @@ namespace Modules.Transactions.Endpoints.Controllers
     {
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetTransactions([FromQuery] int pageNum, int pageSize, int? accountId, DateTime? from, DateTime? to)
+        public async Task<IActionResult> GetTransactions([FromQuery] int pageNum, int pageSize, int? accountId, DateTime? from, DateTime? to, EnumTransactionType type, EnumTransactionStatus status)
         {
-            var res = await mediator.Send(new GetTransactionsQuery(pageNum, pageSize, accountId, from, to));
+            var res = await mediator.Send(new GetTransactionsQuery(pageNum, pageSize, accountId, from, to, type, status));
             return Ok(res);
         }
         [HttpGet("{id:int}")]
