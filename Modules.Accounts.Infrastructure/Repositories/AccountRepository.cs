@@ -5,7 +5,7 @@ using Modules.Accounts.Domain.Entities;
 using Modules.Accounts.Domain.Repositories;
 using Modules.Accounts.Infrastructure.Persistence;
 
-namespace Modules.Accounts.Infrastructure;
+namespace Modules.Accounts.Infrastructure.Repositories;
 
 public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<Account>(dbcontext), IAccountRepository
 {

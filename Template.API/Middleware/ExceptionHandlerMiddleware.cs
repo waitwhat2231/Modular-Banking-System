@@ -21,7 +21,7 @@ public class ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logg
         {
             logger.LogWarning(nb.Message);
 
-            context.Response.StatusCode = 404;
+            context.Response.StatusCode = 400;
             await context.Response.WriteAsync(nb.Message);
         }
 

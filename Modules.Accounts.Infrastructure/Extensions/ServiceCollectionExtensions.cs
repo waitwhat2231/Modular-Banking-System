@@ -1,11 +1,13 @@
 ﻿using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Accounts.Domain.JobRelatedServices;
 using Modules.Accounts.Domain.Repositories;
 using Modules.Accounts.Infrastructure.JobRelatedServices;
 using Modules.Accounts.Infrastructure.Persistence;
+using Modules.Accounts.Infrastructure.Repositories;
 
 namespace Modules.Accounts.Infrastructure.Extensions;
 
@@ -18,7 +20,16 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("Database");
         services.AddDbContext<AccountsDbContext>(options => options.UseSqlServer(connectionString));
 
-        services.AddScoped<IAccountRepository, AccountRepository>();
+        //  services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddMemoryCache();
+        services.AddScoped<AccountRepository>();
+        services.AddScoped<IAccountRepository>(
+            providor =>
+            {
+                var accountRepository = providor.GetService<AccountRepository>()!;
+                return new CachedAccountRepository(accountRepository, providor.GetService<IMemoryCache>()!);
+            }
+            );
 
         services.AddHangfire((sp, config) =>
         {
