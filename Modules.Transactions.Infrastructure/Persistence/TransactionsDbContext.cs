@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Modules.Transactions.Domain.Entities;
 
 namespace Template.Infrastructure.Persistence;
 
@@ -12,6 +13,8 @@ internal class TransactionsDbContext(DbContextOptions<TransactionsDbContext> opt
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("Transactions");
+
+        modelBuilder.Entity<Transaction>().Ignore(t => t.DomainEvents);
 
         //relationships between the tables
     }

@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Transactions.Application.CommittingStrategies;
 using Modules.Transactions.Application.CommittingStrategies.Factory;
+using Modules.Transactions.Application.Events;
 using Modules.Transactions.Application.Handlers;
 using Modules.Transactions.Application.Services;
 
@@ -41,7 +42,7 @@ namespace Modules.Transactions.Application.Extensions
             services.AddScoped<TransferStrategy>();
             services.AddScoped<WithdrawalStrategy>();
             services.AddScoped<DepositStrategy>();
-
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<ITransactionStrategyFactory, TransactionStrategyFactory>();
         }
     }

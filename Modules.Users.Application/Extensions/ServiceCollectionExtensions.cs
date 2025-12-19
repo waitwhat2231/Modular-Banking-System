@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<INotificationService, NotificationService>();
 
         var firebaseKeyPath = Path.Combine(Directory.GetCurrentDirectory(), configuration["Firebase:ServiceAccountFilePath"]);
 

@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{874E9F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.SharedClasses", "Common.SharedClasses\Common.SharedClasses.csproj", "{E5B1B05C-9AA8-4F4A-B855-1C423F4D5662}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Accounts.Application.Test", "Modules.Accounts.Application.Test\Modules.Accounts.Application.Test.csproj", "{10E25573-74E1-75C7-D8D3-949B9CF536F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{E5B1B05C-9AA8-4F4A-B855-1C423F4D5662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5B1B05C-9AA8-4F4A-B855-1C423F4D5662}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5B1B05C-9AA8-4F4A-B855-1C423F4D5662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E25573-74E1-75C7-D8D3-949B9CF536F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E25573-74E1-75C7-D8D3-949B9CF536F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E25573-74E1-75C7-D8D3-949B9CF536F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E25573-74E1-75C7-D8D3-949B9CF536F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +134,7 @@ Global
 		{6C4D9C7C-EE05-4F9E-8E84-A75F1FCFC2A0} = {11582D65-9393-459A-B415-FFB6706E71F5}
 		{874E9F1A-E227-4C44-A27D-8182DA499808} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E5B1B05C-9AA8-4F4A-B855-1C423F4D5662} = {874E9F1A-E227-4C44-A27D-8182DA499808}
+		{10E25573-74E1-75C7-D8D3-949B9CF536F6} = {ECA6C4D9-8E32-4388-A28C-AC35036498C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3602DD8-97B0-42E2-B939-8B20106410B9}

@@ -1,4 +1,5 @@
 using Common.SharedClasses.Repositories;
+using Common.SharedClasses.Services;
 using Hangfire;
 using Modules.Accounts.Domain.JobRelatedServices;
 using Modules.Accounts.Infrastructure.Extensions;
@@ -6,6 +7,7 @@ using Modules.Transactions.Application.Extensions;
 using Modules.Transactions.Infrastructure.Extensions;
 using Modules.Transactions.Infrastructure.Seeders;
 using Modules.Users.Application.Extensions;
+using Modules.Users.Application.Services;
 using Modules.Users.Endpoints.Extensions;
 using Modules.Users.Infrastructure.Extensions;
 using Modules.Users.Infrastructure.Seeders;
@@ -45,7 +47,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.AddUserModulePresentation();
-builder.Services.AddUsersApplication();
+builder.Services.AddUsersApplication(builder.Configuration);
 builder.Services.AddUsersInfrastructure(builder.Configuration);
 
 builder.Services.AddAccountsApplication();
@@ -53,6 +55,7 @@ builder.Services.AddAccountsInfrastructure(builder.Configuration);
 
 builder.Services.AddTransactionsApplication();
 builder.Services.AddTransactionsInfrastructure(builder.Configuration);
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddCors(options =>
 {

@@ -24,7 +24,7 @@ public class CreateAccountCommandHandler(IAccountRepository accountRepository, I
             newAccount = new Account(request.UserId, request.Type, request.ParentAccountId);
             var parent = await accountRepository.FindByIdAsync(request.ParentAccountId.Value);
 
-            if (parent == null) throw new NotFoundException("Parent account not found", request.ParentAccountId.Value.ToString());
+            if (parent == null) throw new NotFoundException("Parent account", request.ParentAccountId.Value.ToString());
 
             parent.AddChild(newAccount);
             await accountRepository.SaveChangesAsync();

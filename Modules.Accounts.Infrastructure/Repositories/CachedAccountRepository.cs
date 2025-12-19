@@ -84,6 +84,7 @@ namespace Modules.Accounts.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
         {
+
             await _decorated.SaveChangesAsync();
         }
 
@@ -94,6 +95,16 @@ namespace Modules.Accounts.Infrastructure.Repositories
 
         public async Task UpdateAsync(Account entity)
         {
+            string accountKey = $"Account-{entity.Id}";
+            string accountFromUserId = $"AccountFromUserId-{entity.UserId}";
+            if (_memoryCache.TryGetValue(accountKey, out _))
+            {
+                _memoryCache.Remove(accountKey);
+            }
+            if (_memoryCache.TryGetValue(accountFromUserId, out _))
+            {
+                _memoryCache.Remove(accountFromUserId);
+            }
             await _decorated.UpdateAsync(entity);
         }
     }
