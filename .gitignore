@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Template.API/balagh-7044c-firebase-adminsdk-fbsvc-372518fcfe.json
