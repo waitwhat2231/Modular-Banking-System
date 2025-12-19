@@ -3,6 +3,7 @@ using Common.SharedClasses.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Modules.Users.Domain.Entities;
 using Modules.Users.Domain.Entities.Auth;
+using Modules.Users.Domain.Entities.Devices;
 namespace Modules.Users.Domain.Repositories
 {
 
@@ -39,5 +40,6 @@ namespace Modules.Users.Domain.Repositories
         Task<bool> ConfirmEmailAsync(string email, string code);
         Task<PagedEntity<User>> GetAllPaginatedAsync(int page, int pageSize, string userName);
         Task<List<User>> GetAllUsersNotPaginated(string userName);
+        Task<List<Device>> GetUserDevicesAsync(string userId);
     }
 }

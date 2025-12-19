@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,5 +33,16 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDeviceRepository, DeviceRepository>();
         services.AddScoped<IOTPRepository, OTPRepository>();
         services.AddScoped<IRolesSeeder, RolesSeeder>();
+
+        var firebaseKeyPath = Path.Combine(Directory.GetCurrentDirectory(), configuration["Firebase:ServiceAccountFilePath"]);
+
+        if (FirebaseApp.DefaultInstance == null)
+        {
+            FirebaseApp.Create(new AppOptions()
+            {
+                //Credential = CredentialFactory.FromFile(firebaseKeyPath, JsonCredentialParameters.ServiceAccountCredentialType)
+                Credential = GoogleCredential.FromFile(firebaseKeyPath)
+            });
+        }
     }
 }

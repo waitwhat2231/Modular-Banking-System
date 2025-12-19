@@ -20,6 +20,7 @@ public class DomainEventDispatcher : IDomainEventDispatcher
             if (domainEvent is TransactionCompletedDomainEvent e)
             {
                 await _mediator.Publish(new CompleteTransactionCommand(
+                    e.UserId,
                     e.TransactionId
                 ));
             }

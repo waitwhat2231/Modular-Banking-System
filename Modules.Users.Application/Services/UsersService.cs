@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.SharedClasses.Dtos.Users;
 using Common.SharedClasses.Pagination;
 using Common.SharedClasses.Services;
 using Modules.Users.Application.Dtos;
@@ -39,6 +40,13 @@ namespace Modules.Users.Application.Services
         {
             var user = await _usersRepository.GetUserAsync(userId);
             var result = _mapper.Map<UserDto>(user);
+            return result;
+        }
+
+        public async Task<List<DeviceDto>> GetUserDevices(string userId)
+        {
+            var devicesDtos = await _usersRepository.GetUserDevicesAsync(userId);
+            var result = _mapper.Map<List<DeviceDto>>(devicesDtos);
             return result;
         }
 

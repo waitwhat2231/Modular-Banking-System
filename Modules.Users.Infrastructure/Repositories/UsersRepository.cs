@@ -579,10 +579,11 @@ namespace Modules.Users.Infrastructure.Repositories
          .Where(u => userIds.Contains(u.Id)).ToListAsync();
         }
 
-        public async Task<User> GetUserOfAccountAsync(int accountId)
+        public async Task<List<Device>> GetUserDevicesAsync(string userId)
         {
-            return await userDbContext.Users
-                .FirstOrDefaultAsync(u => )
+            return await userDbContext.Devices
+                .Where(d => d.UserId == userId)
+                .ToListAsync();
         }
     }
 }
