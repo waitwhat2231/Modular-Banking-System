@@ -4,6 +4,7 @@ using Common.SharedClasses.Enums;
 using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Modules.Transactions.Application.Events;
 using Modules.Transactions.Application.Handlers;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
@@ -12,7 +13,7 @@ namespace Modules.Transactions.Application.Commands.Deposit
 {
     public class DepositCommandHandler(
         ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
-        IMapper mapper, TransactionApprovalChain approvalHandler) : IRequestHandler<DepositCommand, TransactionDto>
+        IMapper mapper, TransactionApprovalChain approvalHandler, IDomainEventDispatcher domainEventDispatcher) : IRequestHandler<DepositCommand, TransactionDto>
     {
         public async Task<TransactionDto> Handle(DepositCommand request, CancellationToken cancellationToken)
         {
@@ -30,8 +31,14 @@ namespace Modules.Transactions.Application.Commands.Deposit
                 {
                     await accountService.UpdateAccount(accountId: request.AccountId, balance: transaction.Amount);
                     balanceAdded = true;
+                    var account = await accountService.GetAccountFromId(request.AccountId);
+                    transaction.Complete(account.UserId);
                 }
                 await transactionsRepository.AddAsync(transaction);
+
+                await domainEventDispatcher.DispatchAsync(transaction.DomainEvents);
+                transaction.ClearDomainEvents();
+
                 var result = mapper.Map<TransactionDto>(transaction);
                 return result;
             }
@@ -42,7 +49,6 @@ namespace Modules.Transactions.Application.Commands.Deposit
                 balanceAdded = true;
                 throw;
             }
-
         }
     }
 }

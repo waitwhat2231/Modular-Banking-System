@@ -578,6 +578,12 @@ namespace Modules.Users.Infrastructure.Repositories
             return await userDbContext.Users
          .Where(u => userIds.Contains(u.Id)).ToListAsync();
         }
+
+        public async Task<User> GetUserOfAccountAsync(int accountId)
+        {
+            return await userDbContext.Users
+                .FirstOrDefaultAsync(u => )
+        }
     }
 }
 

@@ -6,6 +6,7 @@ using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Modules.Transactions.Application.Commands.Deposit;
+using Modules.Transactions.Application.Events;
 using Modules.Transactions.Application.Handlers;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
@@ -14,8 +15,8 @@ namespace Modules.Transactions.Application.Commands.Withdrawal;
 
 public class WithdrawalCommandHandler(
     ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
-    IMapper mapper, TransactionApprovalChain approvalHandler
-    ) : IRequestHandler<WithdrawalCommand, TransactionDto>
+    IMapper mapper, TransactionApprovalChain approvalHandler,
+    IDomainEventDispatcher domainEventDispatcher) : IRequestHandler<WithdrawalCommand, TransactionDto>
 {
     public async Task<TransactionDto> Handle(WithdrawalCommand request, CancellationToken cancellationToken)
     {
@@ -38,8 +39,14 @@ public class WithdrawalCommandHandler(
                 }
                 await accountService.UpdateAccount(accountId: request.AccountId, balance: -1 * transaction.Amount);
                 balanceDeducted = true;
+
+                transaction.Complete(account.UserId);
             }
             await transactionsRepository.AddAsync(transaction);
+
+            await domainEventDispatcher.DispatchAsync(transaction.DomainEvents);
+            transaction.ClearDomainEvents();
+
             var result = mapper.Map<TransactionDto>(transaction);
             return result;
         }

@@ -1,4 +1,5 @@
 ﻿using Common.SharedClasses.Enums;
+using Modules.Transactions.Domain.Events;
 
 namespace Modules.Transactions.Domain.Entities
 {
@@ -13,5 +14,24 @@ namespace Modules.Transactions.Domain.Entities
         public EnumTransactionStatus Status { get; set; }
         public string? ApprovedByUserId { get; set; }
         public DateTime? ApprovedAt { get; set; }
+
+        private readonly List<DomainEvent> domainEvents = [];
+
+        public IReadOnlyCollection<DomainEvent> DomainEvents => domainEvents.AsReadOnly();
+
+        public void Complete(string userId)
+        {
+            if (Status != EnumTransactionStatus.Approved)
+                return;
+
+            domainEvents.Add(new TransactionCompletedDomainEvent(
+                Id,
+                userId,
+                Amount
+            ));
+        }
+
+        public void ClearDomainEvents()
+        => domainEvents.Clear();
     }
 }

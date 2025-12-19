@@ -6,7 +6,7 @@ using Modules.Accounts.Domain.Repositories;
 
 namespace Modules.Accounts.Application.Services
 {
-    public class AccountService(IAccountRepository accountRepository, IMapper mapper) : IAccountService
+    public class AccountService(IAccountRepository accountRepository, IMapper mapper, IUsersService usersService) : IAccountService
     {
         public async Task<AccountDto> GetAccountFromId(int accountId, bool tracking = true)
         {

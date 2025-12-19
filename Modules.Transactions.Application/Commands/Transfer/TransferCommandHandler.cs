@@ -6,6 +6,7 @@ using Common.SharedClasses.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Modules.Transactions.Application.Commands.Deposit;
+using Modules.Transactions.Application.Events;
 using Modules.Transactions.Application.Handlers;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
@@ -14,8 +15,8 @@ namespace Modules.Transactions.Application.Commands.Transfer
 {
     class TransferCommandHandler(
          ITransactionsRepository transactionsRepository, IAccountService accountService, ILogger<DepositCommandHandler> logger,
-    IMapper mapper, TransactionApprovalChain approvalHandler, IUserContext userContext
-        ) : IRequestHandler<TransferCommand, TransactionDto>
+    IMapper mapper, TransactionApprovalChain approvalHandler, IUserContext userContext,
+        IDomainEventDispatcher domainEventDispatcher) : IRequestHandler<TransferCommand, TransactionDto>
     {
         public async Task<TransactionDto> Handle(TransferCommand request, CancellationToken cancellationToken)
         {
@@ -42,8 +43,14 @@ namespace Modules.Transactions.Application.Commands.Transfer
                     balanceDeducted = true;
                     await accountService.UpdateAccount(accountId: request.ToAccountId, balance: transaction.Amount);
                     balanceAdded = true;
+
+                    transaction.Complete(account.UserId);
                 }
                 await transactionsRepository.AddAsync(transaction);
+
+                await domainEventDispatcher.DispatchAsync(transaction.DomainEvents);
+                transaction.ClearDomainEvents();
+
                 var result = mapper.Map<TransactionDto>(transaction);
                 return result;
             }
