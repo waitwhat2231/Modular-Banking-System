@@ -40,4 +40,8 @@ public class AccountRepository(AccountsDbContext dbcontext) : GenericRepository<
         return result;
     }
 
+    public async Task UpdateAccount(Account account)
+    {
+        await dbContext.SaveChangesAsync();
+    }
 }

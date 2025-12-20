@@ -93,6 +93,21 @@ namespace Modules.Accounts.Infrastructure.Repositories
             await _decorated.SoftDeleteAsync(entity);
         }
 
+        public async Task UpdateAccount(Account account)
+        {
+            string accountKey = $"Account-{account.Id}";
+            string accountFromUserId = $"AccountFromUserId-{account.UserId}";
+            if (_memoryCache.TryGetValue(accountKey, out _))
+            {
+                _memoryCache.Remove(accountKey);
+            }
+            if (_memoryCache.TryGetValue(accountFromUserId, out _))
+            {
+                _memoryCache.Remove(accountFromUserId);
+            }
+            await _decorated.SaveChangesAsync();
+        }
+
         public async Task UpdateAsync(Account entity)
         {
             string accountKey = $"Account-{entity.Id}";

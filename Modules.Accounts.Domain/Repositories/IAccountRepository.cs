@@ -8,5 +8,6 @@ public interface IAccountRepository : IGenericRepository<Account>
 {
     public Task<Account?> GetWithChildrenAsync(int accountId);
     public Task<List<Account>> GetByUserIdAsync(string userId);
+    public Task UpdateAccount(Account account);
     Task<PagedEntity<Account>> GetAccountsFiltered(List<string> userIds, int pageNum, int pageSize);
 }
