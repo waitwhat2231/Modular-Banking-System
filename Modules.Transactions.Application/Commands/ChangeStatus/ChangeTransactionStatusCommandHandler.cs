@@ -23,6 +23,7 @@ namespace Modules.Transactions.Application.Commands.ChangeStatus
             }
             if (request.NewStatus == EnumTransactionStatus.Approved)
             {
+
                 var strategy = transactionStrategyFactory.ChooseTransactionStrategy(transaction.TransactionType);
                 await strategy.CommitTransactionAsync(transaction, currentUser.Id);
             }

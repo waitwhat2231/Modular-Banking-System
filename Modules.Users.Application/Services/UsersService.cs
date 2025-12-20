@@ -58,5 +58,11 @@ namespace Modules.Users.Application.Services
 
 
         }
+
+        public async Task SendEmail(string userId, string title, string body)
+        {
+            var user = await _usersRepository.GetUserAsync(userId);
+            await _usersRepository.SendGenericEmail(user.Email!, title, body);
+        }
     }
 }

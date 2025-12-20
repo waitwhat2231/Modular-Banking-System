@@ -11,5 +11,6 @@ namespace Common.SharedClasses.Services
         Task<List<MiniUserDto>> GetAllUsersNoPagination(string userName);
         Task<List<MiniUserDto>> GetUsersFromIds(List<string> userIds);
         Task<List<DeviceDto>> GetUserDevices(string userId);
+        public Task SendEmail(string userId, string title, string body);
     }
 }

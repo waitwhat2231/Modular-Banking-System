@@ -1,10 +1,12 @@
-﻿using Common.SharedClasses.Services;
+﻿using Common.SharedClasses.Jobs;
+using Common.SharedClasses.Services;
 using FirebaseAdmin;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Users.Application.Jobs;
 using Modules.Users.Application.Services;
 
 
@@ -26,6 +28,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IEmailSendingJob, EmailSendingJob>();
+        services.AddScoped<INotificationSendingJob, NotificationSendingJob>();
 
         var firebaseKeyPath = Path.Combine(Directory.GetCurrentDirectory(), configuration["Firebase:ServiceAccountFilePath"]);
 

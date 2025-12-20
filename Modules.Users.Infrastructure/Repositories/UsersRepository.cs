@@ -226,6 +226,29 @@ namespace Modules.Users.Infrastructure.Repositories
             return;
         }
 
+
+
+        public async Task SendGenericEmail(string userEmail, string title, string body)
+        {
+            var emailMessage = new MimeMessage();
+            //for etherreal put "darlene.mcdermott@ethereal.email";
+            emailMessage.From.Add(MailboxAddress.Parse("darlene.mcdermott@ethereal.email"));
+            emailMessage.To.Add(MailboxAddress.Parse(userEmail));
+            emailMessage.Subject = title;
+            emailMessage.Body = new TextPart(TextFormat.Html)
+            {
+                Text = body
+            };
+            using var smtp = new SmtpClient();
+            await smtp.ConnectAsync("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
+
+            //  smtp.Authenticate("darlene.mcdermott@ethereal.email", "9q8QFbScP9VKDBg6cx");
+            smtp.Authenticate("darlene.mcdermott@ethereal.email", "9q8QFbScP9VKDBg6cx");
+            smtp.Send(emailMessage);
+            await smtp.DisconnectAsync(true);
+            return;
+        }
+
         public async Task<string> SaveUserProfileAsync(IFormFile userImage)
         {
             if (userImage == null)

@@ -1,16 +1,18 @@
 ﻿using Common.SharedClasses.Enums;
 using Common.SharedClasses.Exceptions;
 using Common.SharedClasses.Services;
+using Modules.Transactions.Application.Events;
 using Modules.Transactions.Domain.Entities;
 using Modules.Transactions.Domain.Repositories;
 
 namespace Modules.Transactions.Application.CommittingStrategies
 {
-    class WithdrawalStrategy(IAccountService accountService, ITransactionsRepository transactionsRepository) : ITransactionCommitStrategy
+    class WithdrawalStrategy(IAccountService accountService, ITransactionsRepository transactionsRepository, IDomainEventDispatcher domainEventDispatcher) : ITransactionCommitStrategy
     {
         public async Task CommitTransactionAsync(Transaction transaction, string userId)
         {
             bool balanceDeducted = false;
+            var account = await accountService.GetAccountFromId((int)transaction.FromAccountId!, false);
             try
             {
                 var fromAccount = await accountService.GetAccountFromId((int)transaction.FromAccountId, false);
@@ -24,6 +26,9 @@ namespace Modules.Transactions.Application.CommittingStrategies
                 transaction.Status = EnumTransactionStatus.Approved;
                 transaction.ApprovedByUserId = userId;
                 await transactionsRepository.SaveChangesAsync();
+                transaction.Complete(account.UserId);
+                await domainEventDispatcher.DispatchAsync(transaction.DomainEvents);
+                transaction.ClearDomainEvents();
             }
             catch (Exception)
             {

@@ -21,7 +21,8 @@ public class DomainEventDispatcher : IDomainEventDispatcher
             {
                 await _mediator.Publish(new CompleteTransactionCommand(
                     e.UserId,
-                    e.TransactionId
+                    e.Type,
+                    e.Amount
                 ));
             }
         }

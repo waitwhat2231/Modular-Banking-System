@@ -41,5 +41,6 @@ namespace Modules.Users.Domain.Repositories
         Task<PagedEntity<User>> GetAllPaginatedAsync(int page, int pageSize, string userName);
         Task<List<User>> GetAllUsersNotPaginated(string userName);
         Task<List<Device>> GetUserDevicesAsync(string userId);
+        Task SendGenericEmail(string userEmail, string title, string body);
     }
 }

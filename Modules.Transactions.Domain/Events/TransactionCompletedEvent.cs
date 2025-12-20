@@ -1,3 +1,5 @@
-﻿namespace Modules.Transactions.Domain.Events;
+﻿using Common.SharedClasses.Enums;
 
-public record TransactionCompletedDomainEvent(int TransactionId, string UserId, int Amount) : DomainEvent;
+namespace Modules.Transactions.Domain.Events;
+
+public record TransactionCompletedDomainEvent(EnumTransactionType Type, string UserId, int Amount) : DomainEvent;

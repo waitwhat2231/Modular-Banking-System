@@ -25,7 +25,7 @@ namespace Modules.Transactions.Domain.Entities
                 return;
 
             domainEvents.Add(new TransactionCompletedDomainEvent(
-                Id,
+                TransactionType,
                 userId,
                 Amount
             ));

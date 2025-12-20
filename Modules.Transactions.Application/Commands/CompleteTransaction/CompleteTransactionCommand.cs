@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Common.SharedClasses.Enums;
+using MediatR;
 
 namespace Modules.Transactions.Application.Commands.CompleteTransaction;
 
 public sealed record CompleteTransactionCommand(
     string userId,
-    int TransactionId
+    EnumTransactionType Type,
+    int Amount
 ) : INotification;
