@@ -1,52 +1,24 @@
-﻿using AutoMapper;
-using Common.SharedClasses.Dtos.Accounts;
+﻿using Common.SharedClasses.Dtos.Accounts;
 using Common.SharedClasses.Enums;
 using Common.SharedClasses.Exceptions;
 using FluentAssertions;
 using Modules.Accounts.Application.Command.ChangeState;
 using Modules.Accounts.Domain.Entities;
-using Modules.Accounts.Domain.Repositories;
 using Moq;
 using Xunit;
 
-namespace Common.Test.Accounts;
+namespace Common.Test.Accounts.Commands;
 
-public class ChangeAccountStateHandlerTest
+public class ChangeAccountStateHandlerTest : TestBaseSetup
 {
-    private readonly Mock<IAccountRepository> _accountRepositoryMock;
-    private readonly Mock<IMapper> _mapperMock;
-    public ChangeAccountStateHandlerTest()
+    public ChangeAccountStateHandlerTest() : base()
     {
-        _accountRepositoryMock = new();
-        _mapperMock = new();
+
     }
     [Fact]
     public async Task Handle_Should_Throw_Exception_When_account_Doesnt_Exist()
     {
         //Arrange
-        _accountRepositoryMock
-        .Setup(x => x.AddAsync(It.IsAny<Account>()))
-        .ReturnsAsync((Account account) => account);
-        _mapperMock
-          .Setup(x => x.Map<AccountDto>(It.IsAny<Account>()))
-          .Returns(new AccountDto());
-
-        var accounts = new List<Account>
-{
-new Account("user-id", AccountType.Checking)
-{
-    Id = 1
-},
-new Account("user-id", AccountType.Saving)
-{
-    Id = 2
-}
-};
-
-
-        _accountRepositoryMock.Setup(arm => arm.FindByIdAsync(It.IsAny<int>()))
-.ReturnsAsync((int id) => accounts.SingleOrDefault(a => a.Id == id));
-
         var command = new ChangeAccountStateCommand()
         {
             AccountId = 15,
