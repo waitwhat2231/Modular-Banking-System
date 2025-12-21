@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.SharedClasses.Dtos.Accounts;
 using Common.SharedClasses.Enums;
+using Common.SharedClasses.Exceptions;
 using MediatR;
 using Modules.Accounts.Domain.Repositories;
 
@@ -13,7 +14,7 @@ public class ChangeAccountStateCommandHandler(IAccountRepository accountReposito
     {
         AccountDto result;
         var existingAccount = await accountRepository.FindByIdAsync(request.AccountId);
-        if (existingAccount == null) throw new InvalidOperationException("Account is not found");
+        if (existingAccount == null) throw new NotFoundException("Account", request.AccountId.ToString());
 
         if (existingAccount.State == request.NewState)
         {

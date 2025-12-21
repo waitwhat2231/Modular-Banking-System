@@ -3,6 +3,7 @@ using MediatR;
 
 namespace Modules.Accounts.Application.Queries.GetUsersAccounts;
 
-public class GetUsersAccountsQuery : IRequest<List<AccountDto>>
+public class GetUsersAccountsQuery(string? userId = null) : IRequest<List<AccountDto>>
 {
+    public string? UserId { get; set; } = userId;
 }

@@ -53,10 +53,11 @@ public class AccountsController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("CurrentUserAccounts")]
-    public async Task<IActionResult> GetByUserId()
+    [HttpGet("UserAccounts")]
+    [Authorize]
+    public async Task<IActionResult> GetByUserId([FromQuery] string? UserId)
     {
-        var result = await mediator.Send(new GetUsersAccountsQuery());
+        var result = await mediator.Send(new GetUsersAccountsQuery(UserId));
         return Ok(result);
     }
     [HttpGet("AccountSateEnum")]

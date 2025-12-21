@@ -11,7 +11,7 @@ using Modules.Accounts.Domain.Repositories;
 using Moq;
 using Xunit;
 
-namespace Modules.Accounts.Application.Test;
+namespace Common.Test.Accounts;
 
 public class CreateAccountHandlerTest
 {
@@ -57,12 +57,12 @@ public class CreateAccountHandlerTest
         var command = new CreateAccountCommand();
         // command.UserId = "87e57f8e-809c-41f4-b827-69da1295ccf8";
         command.ParentAccountId = -1;
-        command.Type = Common.SharedClasses.Enums.AccountType.Checking;
+        command.Type = AccountType.Checking;
         var commandHandler = new CreateAccountCommandHandler(_accountRepositoryMock.Object, _userContextMock.Object, _mapperMock.Object);
 
 
         //Act
-        Func<Task<Common.SharedClasses.Dtos.Accounts.AccountDto>> act = () => commandHandler.Handle(command, default);
+        Func<Task<AccountDto>> act = () => commandHandler.Handle(command, default);
 
 
         //Assert
@@ -85,7 +85,7 @@ public class CreateAccountHandlerTest
         var command = new CreateAccountCommand();
         // command.UserId = "87e57f8e-809c-41f4-b827-69da1295ccf8";
         command.ParentAccountId = null;
-        command.Type = Common.SharedClasses.Enums.AccountType.Saving;
+        command.Type = AccountType.Saving;
         var commandHandler = new CreateAccountCommandHandler(_accountRepositoryMock.Object, _userContextMock.Object, _mapperMock.Object);
         //Act
         AccountDto act = await commandHandler.Handle(command, default);

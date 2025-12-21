@@ -25,7 +25,10 @@ public class CreateAccountCommandHandler(IAccountRepository accountRepository, I
             var parent = await accountRepository.FindByIdAsync(request.ParentAccountId.Value);
 
             if (parent == null) throw new NotFoundException("Parent account", request.ParentAccountId.Value.ToString());
-
+            if (parent.UserId != newAccount.UserId)
+            {
+                throw new ForbiddenException("adding a Child to an account with a different owner");
+            }
             parent.AddChild(newAccount);
             await accountRepository.SaveChangesAsync();
             result = mapper.Map<AccountDto>(parent);

@@ -11,7 +11,14 @@ public class GetUsersAccountsQueryHandler(IUserContext userContext, IMapper mapp
 {
     public async Task<List<AccountDto>> Handle(GetUsersAccountsQuery request, CancellationToken cancellationToken)
     {
-        string currentUserId = userContext.GetCurrentUser()!.Id;
+        string currentUserId;
+        var currentUser = userContext.GetCurrentUser();
+        if (currentUser.isInRole("User") && request.UserId == null)
+        {
+            currentUserId = currentUser.Id;
+        }
+        else
+            currentUserId = request.UserId;
         var accounts = await accountRepository.GetByUserIdAsync(currentUserId);
         var results = mapper.Map<List<AccountDto>>(accounts);
         return results;
